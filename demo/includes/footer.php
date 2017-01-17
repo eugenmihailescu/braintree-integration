@@ -28,7 +28,6 @@ $app_js_path = 'assets/js/app/';
 <script src="assets/js/integration/DropinUI.js"></script>
 <script src="assets/js/integration/CustomUI.js"></script>
 <script src="assets/js/integration/HostedFieldsUI.js"></script>
--->
 <script src="assets/js/app/main.js"></script>
 <?php
 foreach (glob($app_js_path . '*.js') as $js_file)
