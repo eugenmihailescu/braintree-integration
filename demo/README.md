@@ -13,7 +13,7 @@ On Unix like system it starts automatically a built-in PHP web server on `http:/
 You may however setup a Apache|Nginx|whatever web server by using the `braintree_php_example` directory as your web server's document root.
 
 To start at a later time the built-in PHP web server just type the following command at your shell:
-`php -S -t braintree_php_example localhost:3000`
+`php -S localhost:3000 -t braintree_php_example`
   
 ##4. 3D-Secure
 **3D-Secure requires HTTPS** which does not work on the built-in PHP web server. You might want to configure a Apache|Nginx|whatever web server instead. 
