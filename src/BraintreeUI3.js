@@ -10,7 +10,8 @@ function BraintreeUI3(config) {
 
     GenericIntegration.call(this, config);
 
-    this.client = null; // the Braintree v3 client instance
+    // we could possibly use a shared client instead of creating a new instance
+    this.client = config.client || null;
 
 }
 
@@ -21,18 +22,23 @@ BraintreeUI3.prototype.constructor = BraintreeUI3;
 BraintreeUI3.prototype.init = function() {
     GenericIntegration.prototype.init.call(this);
 
-    var that = this;
+    if (null === this.client) {
+        var that = this;
 
-    var client = new BraintreeClient3({
-        token : this.client_token,
-        onError : this.onError,
-        onClientReady : function(clientInstance) {
-            that.client = clientInstance;
-            that.postInit();
-        }
-    });
+        var client = new BraintreeClient3({
+            token : this.client_token,
+            onError : this.onError,
+            onClientReady : function(clientInstance) {
+                that.client = clientInstance;
+                that.postInit();
+            }
+        });
 
-    client.init();
+        client.init();
+    } else {
+        // probably using a shared client instance (?!)
+        this.postInit();
+    }
 };
 
 BraintreeUI3.prototype.postInit = function() {

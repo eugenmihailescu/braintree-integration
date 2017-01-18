@@ -1,5 +1,6 @@
 <head>
 <title>BraintreePHPExample</title>
+<link rel="icon" href="assets/img/favicon.png">
 <link rel=stylesheet type=text/css href="assets/css/app.css">
 <link rel=stylesheet type=text/css href="assets/css/overrides.css">
 <link rel=stylesheet type=text/css href="assets/css/3dsframe.css">
@@ -90,6 +91,27 @@
 	padding: 0;
 }
 
+.extra-options-items {
+	width: 100%;
+}
+
+.extra-options-items input[type="button"] {
+	padding: 10px;
+	margin: 5px;
+}
+
+.extra-options-buttons-wrapper {
+	text-align: center;
+	width: 100% !important;
+}
+
+.extra-options-items input[type="text"], .extra-options-items input[type="tel"] {
+	margin: 5px !important;
+	background-color: white !important;
+	border: 1px solid #ccc !important;
+	padding: 5px !important;
+}
+
 .customer-payment-methods label:hover, .customer-payment-methods label:focus, .customer-payment-methods label:active {
 	color: #5CD493;
 	border-color: #5CD493;
@@ -101,10 +123,6 @@ input:DISABLED {
 
 .customer-id-option {
 	display: none;
-}
-
-.customer-id-option input {
-	margin-left: 10px;
 }
 
 .notice-wrapper {

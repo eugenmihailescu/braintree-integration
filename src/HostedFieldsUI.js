@@ -114,6 +114,5 @@ HostedFieldsUI.prototype.constructor = HostedFieldsUI;
 HostedFieldsUI.prototype.postInit = function() {
     this.createFields();
 
-    $(this.form).submit(this.tokenizeCard);
+    $(this.form).on("submit", this.tokenizeCard);
 };
-

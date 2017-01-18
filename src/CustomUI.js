@@ -56,24 +56,7 @@ function CustomUI(config) {
             data : data
         }, function(err, result) {
             if (err) {
-                var renderFieldErrors = function(err) {
-                    err.forEach(function(field) {
-                        if (field.fieldErrors) {
-                            renderFieldErrors(field.fieldErrors);
-                        } else if (field.field in that.inputs) {
-                            that.processError(field.message);
-                        }
-                    });
-                };
-
-                var rawRequestError = err.details.originalError;
-
-                if (rawRequestError.fieldErrors && rawRequestError.fieldErrors.length > 0) {
-                    renderFieldErrors(rawRequestError.fieldErrors[0].fieldErrors);
-                } else {
-                    console.log(err);
-                    that.processError('Something unexpected went wrong.');
-                }
+                that.onError(that.execModuleFn('utils', 'parseError', err));
                 return;
             }
 
@@ -96,6 +79,5 @@ CustomUI.prototype.constructor = CustomUI;
 
 // functions which are run right after initialization
 CustomUI.prototype.postInit = function() {
-    $(this.form).submit(this.tokenizeCard);
+    $(this.form).on("submit", this.tokenizeCard);
 };
-

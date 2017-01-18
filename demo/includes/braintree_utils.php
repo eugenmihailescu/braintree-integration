@@ -134,15 +134,21 @@ function bt_decode_key($encoded_key)
  *
  * @param array $customer_payment_methods
  *            An array of Braintree Vault-stored customer payment methods
+ * @param string|boolean $filterByMethod
+ *            When specified then filter the methods by the specified string, otherwise return all
  * @return array
  */
-function parseCustomerPaymentMethods($customer_payment_methods)
+function parseCustomerPaymentMethods($customer_payment_methods, $filterByMethod = false)
 {
     $payments_methods = array();
     
     foreach ($customer_payment_methods as $bt_payment_method) {
         $is_card = is_a($bt_payment_method, 'Braintree\CreditCard');
         $is_paypal = is_a($bt_payment_method, 'Braintree\PayPalAccount');
+        $method = $is_card ? 'CreditCard' : 'PayPalAccount';
+        
+        if ($filterByMethod && $filterByMethod !== $method)
+            continue;
         
         $token = bt_encode_key($bt_payment_method->token);
         
@@ -162,7 +168,7 @@ function parseCustomerPaymentMethods($customer_payment_methods)
             $payments_methods[$key] = array(
                 'type' => $is_card ? $bt_payment_method->cardType : 'PayPal',
                 'css_class' => $is_card ? getCreditCardTypeByName($bt_payment_method->cardType) : 'paypal',
-                'method' => $is_card ? 'CreditCard' : 'PayPalAccount',
+                'method' => $method,
                 'default' => $bt_payment_method->default,
                 'maskedNumber' => $is_card ? $bt_payment_method->maskedNumber : false,
                 'expiry' => $is_card ? $bt_payment_method->expirationYear . $bt_payment_method->expirationMonth : false,

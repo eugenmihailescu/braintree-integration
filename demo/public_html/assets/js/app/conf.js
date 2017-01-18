@@ -16,7 +16,8 @@
             modules : {
                 "utils" : {
                     instance : this.bt_utils,
-                    exports : [ "decodeToken", "is3DSEnabled", "getAVSChallenges", "parseError" ]
+                    exports : [ "decodeToken", "is3DSEnabled", "getAVSChallenges", "parseError", "toBoolean",
+                            "getAccountSettings" ]
                 }
             }
         };
@@ -36,6 +37,20 @@
         };
 
         switch (ui_type) {
+        case that.PAYPALBUTTON:
+            delete result.allow3DSPaymentsOny;
+            delete result.ignore3DSIfAVS;
+            $.extend(result, {
+                container : ".bt-paypal-wrapper",
+                onGetCurrency : function() {
+                    return that.bt_utils.getAccountSettings("paypal.currencyIsoCode");
+                },
+                inputs : $.extend(result.inputs, {
+                    amount : "#amount",
+                    deviceData : "deviceData"
+                })
+            }, that.paypalOptions);
+            break;
         case that.DROPINUI:
             $.extend(result, {
                 container : "bt-dropin"

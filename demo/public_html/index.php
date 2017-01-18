@@ -37,6 +37,7 @@ var ajaxurl='/';
 					<option value="drop-in-ui">Drop-in UI</option>
 					<option value="custom-ui" selected="selected">Custom UI</option>
 					<option value="hosted-ui">Hosted Fields UI</option>
+					<option value="paypal-button">PayPal button</option>
 				</select> <select id="threeDS_option">
 					<option value="true" selected="selected">3DS mandatory</option>
 					<option value="optional">3DS optional</option>
@@ -52,6 +53,8 @@ var ajaxurl='/';
 					<a href="#extra_options" class="extra-option-toggle">Show advanced options</a>
 					<div class="extra-options">
 						<div class="extra-options-items">
+							<fieldset>
+								<legend>Vault options:</legend>
 							<select id="vault_option" name="vault_option">
 								<option value="">Do not store the Customer in Vault</option>
 								<option value="storeInVaultOnSuccess">Store Customer in Vault on success</option>
@@ -62,9 +65,68 @@ var ajaxurl='/';
 									value="<?php echo $customer_id;?>" placeholder="enter Id"
 									title="Enter an existent or new Id that will be used to create the new customer">
 							</div>
-							<div class="card-theme-option">
+							</fieldset>
+							<fieldset class="card-theme-option">
+								<legend>Look & feel options:</legend>
 								<label for="theme_options">Select the card theme :</label> <select id="theme_options">
 								</select>
+							</fieldset>
+							<fieldset class="paypal-options">
+								<legend>PayPal button options:</legend>
+								<select id="paypal-flow">
+									<option value="checkout" selected="selected">PayPal Checkout flow</option>
+									<option value="vault">PayPal Vault flow</option>
+								</select> <select id="paypal-intent">
+									<option value="sale" selected="selected">Submit for settlement</option>
+									<option value="authorize">Authorize only</option>
+								</select> <select id="paypal-useraction">
+									<option value="" selected="selected">Continue</option>
+									<option value="commit">Pay Now</option>
+								</select>
+								<div>
+									<label for="paypal-displayName">Display name</label> <input id="paypal-displayName" type="text"
+										placeholder="enter name">
+								</div>
+								<div>
+									<label for="paypal-locale">Locale</label><input id="paypal-locale" type="text" placeholder="locale code"
+										value="en_US">
+								</div>
+								<select id="paypal-enableShippingAddress">
+									<option value="false">Shipping address disabled</option>
+									<option value="true">Enable shipping address</option>
+								</select> <select id="paypal-shippingAddressEditable">
+									<option value="false">ROnly shipping address</option>
+									<option value="true">Editable shipping address</option>
+								</select>
+								<div>
+									<label for="paypal-billingAgreementDescription">Billing agreement description</label><input
+										id="paypal-billingAgreementDescription" type="text" placeholder="enter description">
+								</div>
+								<select id="paypal-offerCredit">
+									<option value="false" selected="selected">No credit</option>
+									<option value="true">PayPal credit</option>
+								</select>
+								<div>
+									<label>Button options:</label> <select id="paypal-button-color">
+										<option value="blue">Blue</option>
+										<option value="gold" selected="selected">Gold</option>
+										<option value="silver">Silver</option>
+									</select> <select id="paypal-button-size">
+										<option value="medium" selected="selected">Medium</option>
+										<option value="small">Small</option>
+										<option value="tiny">Tiny</option>
+									</select> <select id="paypal-button-shape">
+										<option value="pill">Pill</option>
+										<option value="rect">Rect</option>
+									</select> <select id="paypal-button_type">
+										<option value="button" selected="selected">Button</option>
+										<option value="submit">Submit</option>
+										<option value="none">None</option>
+									</select>
+								</div>
+							</fieldset>
+							<div class="extra-options-buttons-wrapper">
+								<input id="apply-options" class="button" type="button" value="Apply changes">
 							</div>
 						</div>
 					</div>

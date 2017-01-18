@@ -7,7 +7,8 @@ $known_actions = array(
         'customerId'
     ),
     'get_payment_methods' => array(
-        'customerId'
+        'customerId',
+        'filterByMethod'
     ),
     'get_card' => array(
         'theme_id',
@@ -99,9 +100,11 @@ function get_token($id = null)
  *
  * @param string $id
  *            The customer Id stored in the Braintree's Vault
+ * @param string|boolean $filterByMethod
+ *            When specified then filter the methods by the specified string, otherwise return all
  * @return array Returns the html fragment within an array
  */
-function get_payment_methods($id = null)
+function get_payment_methods($id = null, $filterByMethod = "")
 {
     $customer_id = get_customer_id($id);
     
@@ -110,7 +113,7 @@ function get_payment_methods($id = null)
         if ($customer = getCustomerById($customer_id)) {
             $customer_payment_methods = getCustomerPaymentMethods($customer);
             
-            $payments_methods = parseCustomerPaymentMethods($customer_payment_methods);
+            $payments_methods = parseCustomerPaymentMethods($customer_payment_methods, $filterByMethod);
             
             $top = 5;
             // sort the array DESC by payment method expiry date

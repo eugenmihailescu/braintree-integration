@@ -27,7 +27,6 @@ function BraintreeUtils(token) {
     };
 
     var obj = this.decodeToken(token);
-
     /**
      * Check if settings (given by class token) has 3DS enabled
      * 
@@ -68,6 +67,28 @@ function BraintreeUtils(token) {
         }
 
         return "undefined" === typeof value ? result : result.indexOf(value) >= 0;
+    };
+
+    /**
+     * Get the value associated with the key from the Braintree decoded token
+     * 
+     * @param string
+     *            key The key which value is to return. To specify a nested key use the dot notation.
+     * @return Returns the value associate with the key on success, false otherwise
+     */
+    this.getAccountSettings = function(key) {
+        var keys = key.split(".");
+        var result = obj;
+
+        keys.forEach(function(k) {
+            if (!result[k]) {
+                result = false;
+                return;
+            }
+            result = result[k];
+        });
+
+        return result;
     };
 
     /**
@@ -154,4 +175,3 @@ function BraintreeUtils(token) {
         return (err.type ? err.type + ":" : "") + msg.join("<br>");
     };
 }
-

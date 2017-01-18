@@ -2,21 +2,27 @@
 $sdk2_version = '2.27.0';
 $sdk3_version = '3.6.3';
 $app_js_path = 'assets/js/app/';
+$optimization = ".min"; // ".min",""
 ?>
 <div id="loading" class="hidden">
 	<div class="cssload-container"></div>
 	<div class="loading-mask"></div>
 </div>
 
-<?php include_once __DIR__.'/../public_html/assets/templates/3dsframe.php';?>
+<?php include_once 'assets/templates/3dsframe.php';?>
 
+<script>
+var client_sdk={"sdk2":"<?php echo $sdk2_version?>","sdk3":"<?php echo $sdk3_version?>","sufix":"<?php echo $optimization;?>"};
+</script>
 <!-- SDK v2 -->
 <script src="https://js.braintreegateway.com/js/braintree-<?php echo $sdk2_version;?>.js"></script>
 
 <!-- SDK v3 -->
-<script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/client.min.js"></script>
-<script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/three-d-secure.js"></script>
-<script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/hosted-fields.js"></script>
+<script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/client<?php echo $optimization;?>.js"></script>
+<script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/three-d-secure<?php echo $optimization;?>.js"></script>
+<script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/hosted-fields<?php echo $optimization;?>.js"></script>
+<script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/paypal<?php echo $optimization;?>.js"></script>
+<script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/data-collector<?php echo $optimization;?>.js"></script>
 
 <!-- our UI JS classes -->
 <script src="assets/js/integration/BraintreeUtils.js"></script>
@@ -28,6 +34,7 @@ $app_js_path = 'assets/js/app/';
 <script src="assets/js/integration/DropinUI.js"></script>
 <script src="assets/js/integration/CustomUI.js"></script>
 <script src="assets/js/integration/HostedFieldsUI.js"></script>
+<script src="assets/js/integration/PayPalButton.js"></script>
 <script src="assets/js/app/main.js"></script>
 <?php
 foreach (glob($app_js_path . '*.js') as $js_file)

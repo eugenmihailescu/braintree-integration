@@ -12,14 +12,14 @@ function GenericIntegration(config) {
     // call the superclass constructor
     ConfiguredClass.call(this, config);
 
-    // /////////////////////////////
-    // PRIVATE MEMBERS & FUNCTIONS
-    // \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
     var that = this;
 
+    // ///////////////////////////////
+    // PRIVILEGED MEMBERS & FUNCTIONS
+    // \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
     // helper function that appends hidden fields to the integration form
-    function setFieldValue(name, value) {
+    this.setFieldValue = function(name, value) {
         var field = $("input[name=\"" + name + "\"]");
 
         if (field.length) {
@@ -31,18 +31,12 @@ function GenericIntegration(config) {
                 "value" : value
             }).appendTo(that.form);
         }
-    }
+    };
 
     // helper function that submits the checkout form
-    function submit(nonce) {
-        setFieldValue(that.inputs.paymentNonce, nonce);
-
+    this.submit = function(nonce) {
         that.form.off("submit").trigger("submit");
-    }
-
-    // ///////////////////////////////
-    // PRIVILEGED MEMBERS & FUNCTIONS
-    // \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    };
 
     // the ThreeDSecure helper class instance
     this.threeDSecure = config.threeDSecure || false;
@@ -108,7 +102,7 @@ function GenericIntegration(config) {
     // callback notified when 3DS is bypassed by AVS rules
     this.onBypass3DS = function(response) {
         if (that.ignore3DSIfAVS && that.execModuleFn("utils", "getAVSChallenges").length) {
-            setFieldValue(that.inputs.non3DSPayment, true);
+            that.setFieldValue(that.inputs.non3DSPayment, true);
 
             return true;
         }
@@ -134,7 +128,9 @@ function GenericIntegration(config) {
             }
         }
 
-        submit(paymentMethodInfo.nonce);
+        that.setFieldValue(that.inputs.paymentNonce, paymentMethodInfo.nonce);
+
+        that.submit();
     };
 
     // setter for ThreeDSecure instance

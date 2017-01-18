@@ -41,7 +41,7 @@
         });
     };
 
-    BraintreeApp.prototype.loadVaultPaymentMethods = function(customer_id, ready) {
+    BraintreeApp.prototype.loadVaultPaymentMethods = function(customer_id, method_type, ready) {
         var that = this;
 
         var selector = $(".customer-payment-methods-wrapper");
@@ -53,7 +53,8 @@
         if (customer_id) {
             that.post_ajax_request({
                 "action" : "get_payment_methods",
-                "customerId" : customer_id
+                "customerId" : customer_id,
+                'filterByMethod' : method_type
             }, function(data) {
                 if (data["success"]) {
                     selector.html(data["html"]).slideToggle();
@@ -66,7 +67,7 @@
                 }
 
             }, function(jqXHR, textStatus, errorThrown) {
-                var msg = (textStatus.length ? textStatus + ": " : "") + errorThrown;
+                var msg = (textStatus && textStatus.length ? textStatus + ": " : "") + errorThrown;
                 that.error_function(msg);
                 selector.empty();
             });
