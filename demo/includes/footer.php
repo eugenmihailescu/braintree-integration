@@ -35,6 +35,7 @@ var client_sdk={"sdk2":"<?php echo $sdk2_version?>","sdk3":"<?php echo $sdk3_ver
 <script src="assets/js/integration/CustomUI.js"></script>
 <script src="assets/js/integration/HostedFieldsUI.js"></script>
 <script src="assets/js/integration/PayPalButton.js"></script>
+<script src="assets/js/integration/PayPalButtonUI.js"></script>
 <script src="assets/js/app/main.js"></script>
 <?php
 foreach (glob($app_js_path . '*.js') as $js_file)

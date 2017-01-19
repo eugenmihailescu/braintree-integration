@@ -7,6 +7,7 @@
 
 <?php foreach (glob(__DIR__.'/../public_html/assets/js/vendor/jquery*.min.js') as $filename)printf("<script src=\"assets/js/vendor/%s\"></script>",basename($filename));?>
 <script src="assets/js/demo.js"></script>
+<script src="https://www.paypalobjects.com/api/button.js"></script>
 
 <style type="text/css">
 .bt-hosted-ui-wrapper iframe {

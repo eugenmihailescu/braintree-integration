@@ -73,7 +73,7 @@ function BraintreeApp() {
     function bindEvents() {
         var paypal_options = [ "flow", "intent", "useraction", "displayName", "locale", "enableShippingAddress",
                 "offerCredit", "shippingAddressEditable", "billingAgreementDescription" ];
-        var paypal_button_options = [ "color", "size", "shape", "type", "label", "tagline" ];
+        var paypal_button_options = [ "color", "size", "shape", "label", "tagline", "style" ];
 
         $("#ui_selector").off(that.CHANGE).on(that.CHANGE, function() {
             var ui_type = $(this).val();
@@ -174,13 +174,29 @@ function BraintreeApp() {
 
         });
 
-        $("#paypal-offerCredit").on(
-                "change",
-                function() {
-                    $("#paypal-button-color,#paypal-button-size,#paypal-button-shape,#paypal-button_type").attr("disabled",
-                            "true" === $(this).val());
-                });
+        $("#paypal-offerCredit").on("change", function() {
+            $("#paypal-button-color,#paypal-button-style").attr("disabled", "true" === $(this).val());
+        });
 
+        $("#paypal-button-style").on("change", function() {
+            var has_style = !!$(this).val().length;
+
+            if (has_style) {
+                $("#paypal-button-color").val("").trigger("change");
+            }
+
+            $("#paypal-button-color").attr("disabled", has_style);
+            $("#paypal-button-shape").attr("disabled", has_style);
+            $("#paypal-button-tagline").attr("disabled", has_style);
+            $("#paypal-button-label-hint")[has_style ? "hide" : "show"]();
+        }).trigger("change");
+
+        $("#paypal-button-color").on("change", function() {
+            if ($(this).val().length) {
+                $("#paypal-button-style").val("").trigger("change");
+            }
+            $("#paypal-button-style").attr("disabled", !!$(this).val().length);
+        }).trigger("change");
     }
 
     // ///////////////////////////////
@@ -207,14 +223,17 @@ function BraintreeApp() {
         displayName : "",
         locale : "en_US",
         buttonOptions : {
-            id : "bt-paypal",
-            merchant : "braintree",
-            color : "gold",
+            color : "",
             size : "medium",
             shape : "pill",
-            button_type : "button",
-            label : "{wordmark}",
-            tagline : false
+            label : "Pay with {wordmark}",
+            tagline : false,
+            show_icon : true,
+            locale : "en_US",
+            disabled : false,
+            type : "button",
+            style : "primary",
+            id : "foo"
         }
     };
 

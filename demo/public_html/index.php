@@ -108,8 +108,9 @@ var ajaxurl='/';
 								</select>
 								<div>
 									<label>Button options:</label> <select id="paypal-button-color">
+										<option value="" selected="selected">Default</option>
 										<option value="blue">Blue</option>
-										<option value="gold" selected="selected">Gold</option>
+										<option value="gold">Gold</option>
 										<option value="silver">Silver</option>
 									</select> <select id="paypal-button-size">
 										<option value="large">Large</option>
@@ -119,17 +120,19 @@ var ajaxurl='/';
 									</select> <select id="paypal-button-shape">
 										<option value="pill">Pill</option>
 										<option value="rect">Rect</option>
-									</select> <select id="paypal-button_type">
-										<option value="button" selected="selected">Button</option>
-										<option value="submit">Submit</option>
-										<option value="none">None</option>
+									</select> <select id="paypal-button-style">
+										<option value="">Default</option>
+										<option value="primary" selected="selected">Primary</option>
+										<option value="secondary">Secondary</option>
+										<option value="tertiary">Tertiary</option>
+										<option value="quaternary">Quaternary</option>
 									</select> </select> <select id="paypal-button-tagline">
 										<option value="true">With tagline</option>
 										<option value="false" selected="selected">No tagline</option>
 									</select>
 									<div>
 										<label for="paypal-button-label">Button label</label><input id="paypal-button-label" type="text"
-											placeholder="enter label"> <span>&lt;= Use {wordmark} tag for logo</span>
+											placeholder="enter label" value="Pay with "> <span id="paypal-button-label-hint">&lt;= Use {wordmark} tag for logo</span>
 									</div>
 								</div>
 							</fieldset>

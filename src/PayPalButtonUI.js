@@ -10,27 +10,27 @@ function PayPalButtonUI(config) {
     // creates the PayPal button insider container
     function createButton() {
         var container = this.container || "body";
-
+        var btn;
         var data = $.extend(this.buttonOptions, {
-            "button" : this.offerCredit ? "credit" : "checkout",
+            "type" : this.offerCredit ? "credit" : "checkout",
         });
 
-        var attr = {
-            "src" : "https://www.paypalobjects.com/api/button.js?",
-            "async" : true
-        };
-        $.each(data, function(key, value) {
-            attr["data-" + key] = value;
-        });
-
-        $("<script/>", attr).appendTo($(container));
+        if (data.color.length) {
+            btn = PayPalButton.prototype.createCheckoutButton(container, data.id, data.size, data.shape, data.color,
+                    data.label, data.show_icon, data.tagline, data.locale, data.disabled, data.type);
+        } else {
+            if (data.style.length) {
+                btn = PayPalButton.prototype.createStyleButton(container, data.id, data.size, data.shape, data.style,
+                        data.label, data.show_icon, data.locale, data.disabled);
+            }
+        }
     }
 
     // creates the PayPal payment method selector inside container
     function createPaymentMethodContainer() {
         var container = this.container || "body";
 
-        var id = this.getButtonId().replace("#", "") + "-payment-method";
+        var id = this.getButtonId().replace(".", "").replace("#", "") + "-payment-method";
 
         var attr = {
             id : id,
@@ -123,9 +123,12 @@ function PayPalButtonUI(config) {
     // when button_type=none then `id` should point to an existent element
     this.buttonOptions = config.buttonOptions || {
         color : "gold",// blue|gold|silver
-        size : "medium",// tiny|small|medium
+        size : "medium",// tiny|small|medium|large
         shape : "pill",// pill|rect
-        button_type : "button"// submit|button|none
+        label : "",// a button caption eventually using the {wordmark} tag
+        show_icon : true,// true|false
+        tagline : true,// true|false
+        locale : "en_US"
     };
 
     // The amount of the transaction, required when flow="checkout"
@@ -182,7 +185,7 @@ function PayPalButtonUI(config) {
         $("#" + that.buttonOptions.id).hide();
 
         $(that.getButtonId().replace("#", ".") + "-payment-method").show();
-    };
+    }
 
     this.hidePaymentMethod = function() {
         $(that.getButtonId().replace("#", ".") + "-payment-method").hide();
@@ -275,10 +278,9 @@ function PayPalButtonUI(config) {
     };
 
     // create a HTML element button wrapped by container
-    if (this.buttonOptions.button_type !== "none") {
-        createButton.call(this);
-        createPaymentMethodContainer.call(this);
-    }
+    createButton.call(this);
+    createPaymentMethodContainer.call(this);
+    this.enablePaymentButton();
 
     this.init();
 }
