@@ -34,7 +34,7 @@ function BraintreeApp() {
 
         switch (ui_type) {
         case that.PAYPALBUTTON:
-            that.ui_obj = new PayPalButton(that.getIntegrationConf(ui_type));
+            that.ui_obj = new PayPalButtonUI(that.getIntegrationConf(ui_type));
             url = "paypal/overview/javascript/v3";
             break;
         case that.DROPINUI:

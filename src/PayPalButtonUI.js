@@ -1,6 +1,6 @@
 "use strict";
 
-function PayPalButton(config) {
+function PayPalButtonUI(config) {
     // NOTE: Error: Permission denied to access property "href (adblocking-software??)
 
     BraintreeUI3.call(this, config);
@@ -283,10 +283,10 @@ function PayPalButton(config) {
     this.init();
 }
 
-PayPalButton.prototype = Object.create(BraintreeUI3.prototype);
-PayPalButton.prototype.constructor = PayPalButton;
+PayPalButtonUI.prototype = Object.create(BraintreeUI3.prototype);
+PayPalButtonUI.prototype.constructor = PayPalButtonUI;
 
-PayPalButton.prototype.destroy = function(onDone) {
+PayPalButtonUI.prototype.destroy = function(onDone) {
     var that = this;
 
     // we don't want to let behind orphan events
@@ -312,7 +312,7 @@ PayPalButton.prototype.destroy = function(onDone) {
     });
 }
 
-PayPalButton.prototype.postInit = function() {
+PayPalButtonUI.prototype.postInit = function() {
     var that = this;
     // the BT client is successfully created, create the PayPal components
 
@@ -357,12 +357,12 @@ PayPalButton.prototype.postInit = function() {
 
 };
 
-PayPalButton.prototype.init = function() {
+PayPalButtonUI.prototype.init = function() {
     // the BT client is not yet created, the button may not be used
     this.disablePaymentButton();
 
     BraintreeUI3.prototype.init.call(this);
 };
 
-PayPalButton.prototype.PAYPAL_LOGO = "https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png";
-PayPalButton.prototype.PAYPALCREDIT_LOGO = "https://www.paypalobjects.com/webstatic/en_US/i/buttons/ppc-acceptance-small.png";
+PayPalButtonUI.prototype.PAYPAL_LOGO = "https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png";
+PayPalButtonUI.prototype.PAYPALCREDIT_LOGO = "https://www.paypalobjects.com/webstatic/en_US/i/buttons/ppc-acceptance-small.png";
