@@ -73,7 +73,7 @@ function BraintreeApp() {
     function bindEvents() {
         var paypal_options = [ "flow", "intent", "useraction", "displayName", "locale", "enableShippingAddress",
                 "offerCredit", "shippingAddressEditable", "billingAgreementDescription" ];
-        var paypal_button_options = [ "color", "size", "shape", "type" ];
+        var paypal_button_options = [ "color", "size", "shape", "type", "label", "tagline" ];
 
         $("#ui_selector").off(that.CHANGE).on(that.CHANGE, function() {
             var ui_type = $(this).val();
@@ -180,6 +180,7 @@ function BraintreeApp() {
                     $("#paypal-button-color,#paypal-button-size,#paypal-button-shape,#paypal-button_type").attr("disabled",
                             "true" === $(this).val());
                 });
+
     }
 
     // ///////////////////////////////
@@ -211,7 +212,9 @@ function BraintreeApp() {
             color : "gold",
             size : "medium",
             shape : "pill",
-            button_type : "button"
+            button_type : "button",
+            label : "{wordmark}",
+            tagline : false
         }
     };
 

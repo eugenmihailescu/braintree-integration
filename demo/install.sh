@@ -35,18 +35,19 @@ mv -t ${DST}/public_html/assets/css ${DST}/public_html/css/*
 mv -t ${DST}/public_html/assets/js ${DST}/public_html/javascript/*
 
 # copy our source includes
-cp ${SRC}/includes/*.php ${DST}/includes
+cp -P ${SRC}/includes/*.php ${DST}/includes
 
 # copy our source assets
-cp ${SRC}/public_html/assets/css/3dsframe.css ${DST}/public_html/assets/css/
-cp ${SRC}/public_html/assets/img/ring-alt.gif ${DST}/public_html/assets/img/
-cp ${SRC}/public_html/assets/js/app/* ${DST}/public_html/assets/js/app/
-cp ${SRC}/../src/*.js ${DST}/public_html/assets/js/integration
-cp ${DST}/vendor/myinputmask/src/*.js ${DST}/public_html/assets/js/integration
-cp -r ${SRC}/public_html/assets/templates ${DST}/public_html/assets
+cp -P ${SRC}/public_html/assets/css/3dsframe.css ${DST}/public_html/assets/css/
+cp -P ${SRC}/public_html/assets/img/ring-alt.gif ${DST}/public_html/assets/img/
+cp -P ${SRC}/public_html/assets/js/app/* ${DST}/public_html/assets/js/app/
+cp -P ${SRC}/../src/*.js ${DST}/public_html/assets/js/integration
+cp -P /sdd1/home/eugen/git/paypal-button-wrapper/src/PayPalButton.js ${DST}/public_html/assets/js/integration/
+cp -P ${DST}/vendor/myinputmask/src/*.js ${DST}/public_html/assets/js/integration
+cp -rP ${SRC}/public_html/assets/templates ${DST}/public_html/assets
 
-cp ${SRC}/public_html/{index,checkout}.php ${DST}/public_html/
-cp ${DST}/example.env ${DST}/.env
+cp -P ${SRC}/public_html/{index,checkout}.php ${DST}/public_html/
+cp -P ${DST}/example.env ${DST}/.env
 
 edone
 

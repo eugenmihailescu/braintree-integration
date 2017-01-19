@@ -77,8 +77,7 @@
 
 .extra-options {
 	padding: 10px;
-	background-color: ivory;
-	border: 1px solid #EEE;
+	border: 1px solid #5CD493;
 	border-radius: 5px;
 }
 
@@ -110,6 +109,11 @@
 	background-color: white !important;
 	border: 1px solid #ccc !important;
 	padding: 5px !important;
+}
+
+.extra-options-items input[type="text"]:FOCUS, .extra-options-items input[type="tel"]:FOCUS {
+	border: 1px solid #5CD493 !important;
+	box-shadow: 0 0 5px #5CD493;
 }
 
 .customer-payment-methods label:hover, .customer-payment-methods label:focus, .customer-payment-methods label:active {

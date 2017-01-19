@@ -55,16 +55,16 @@ var ajaxurl='/';
 						<div class="extra-options-items">
 							<fieldset>
 								<legend>Vault options:</legend>
-							<select id="vault_option" name="vault_option">
-								<option value="">Do not store the Customer in Vault</option>
-								<option value="storeInVaultOnSuccess">Store Customer in Vault on success</option>
-								<option value="storeInVault">Always store the Customer in Vault</option>
-							</select>
-							<div class="customer-id-option">
-								<label for="customerId">Customer Id :</label><input type="tel" id="customerId" name="customerId" min="1"
-									value="<?php echo $customer_id;?>" placeholder="enter Id"
-									title="Enter an existent or new Id that will be used to create the new customer">
-							</div>
+								<select id="vault_option" name="vault_option">
+									<option value="">Do not store the Customer in Vault</option>
+									<option value="storeInVaultOnSuccess">Store Customer in Vault on success</option>
+									<option value="storeInVault">Always store the Customer in Vault</option>
+								</select>
+								<div class="customer-id-option">
+									<label for="customerId">Customer Id :</label><input type="tel" id="customerId" name="customerId" min="1"
+										value="<?php echo $customer_id;?>" placeholder="enter Id"
+										title="Enter an existent or new Id that will be used to create the new customer">
+								</div>
 							</fieldset>
 							<fieldset class="card-theme-option">
 								<legend>Look & feel options:</legend>
@@ -112,6 +112,7 @@ var ajaxurl='/';
 										<option value="gold" selected="selected">Gold</option>
 										<option value="silver">Silver</option>
 									</select> <select id="paypal-button-size">
+										<option value="large">Large</option>
 										<option value="medium" selected="selected">Medium</option>
 										<option value="small">Small</option>
 										<option value="tiny">Tiny</option>
@@ -122,7 +123,14 @@ var ajaxurl='/';
 										<option value="button" selected="selected">Button</option>
 										<option value="submit">Submit</option>
 										<option value="none">None</option>
+									</select> </select> <select id="paypal-button-tagline">
+										<option value="true">With tagline</option>
+										<option value="false" selected="selected">No tagline</option>
 									</select>
+									<div>
+										<label for="paypal-button-label">Button label</label><input id="paypal-button-label" type="text"
+											placeholder="enter label"> <span>&lt;= Use {wordmark} tag for logo</span>
+									</div>
 								</div>
 							</fieldset>
 							<div class="extra-options-buttons-wrapper">

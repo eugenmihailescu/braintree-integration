@@ -42,6 +42,9 @@
             delete result.ignore3DSIfAVS;
             $.extend(result, {
                 container : ".bt-paypal-wrapper",
+                containerStyle : {
+                    css : {}
+                },
                 onGetCurrency : function() {
                     return that.bt_utils.getAccountSettings("paypal.currencyIsoCode");
                 },
