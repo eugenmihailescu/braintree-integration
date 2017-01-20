@@ -38,6 +38,7 @@ var ajaxurl='/';
 					<option value="custom-ui" selected="selected">Custom UI</option>
 					<option value="hosted-ui">Hosted Fields UI</option>
 					<option value="paypal-button">PayPal button</option>
+					<option value="hosted-ui-paypal-button">Hosted Fields+PayPal</option>
 				</select> <select id="threeDS_option">
 					<option value="true" selected="selected">3DS mandatory</option>
 					<option value="optional">3DS optional</option>

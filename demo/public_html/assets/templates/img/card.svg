@@ -1,0 +1,28 @@
+<svg width="54" height="43" viewBox="0 0 54 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:figma="http://www.figma.com/figma/ns">
+<title>Card Icon</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-179 117)" figma:type="canvas">
+<g id="Card Icon" style="mix-blend-mode:normal;" figma:type="frame">
+<g id="Card" style="mix-blend-mode:normal;" filter="url(#filter0_d)" figma:type="rounded-rectangle">
+<use xlink:href="#path0_fill" transform="translate(187 -114)" fill="#FFFFFF" style="mix-blend-mode:normal;"/>
+</g>
+<g id="Rectangle 3" style="mix-blend-mode:normal;" figma:type="rounded-rectangle">
+<use xlink:href="#path1_fill" transform="translate(187 -107.5)" style="mix-blend-mode:normal;"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" filterUnits="userSpaceOnUse" x="179" y="-117" width="54" height="44" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<desc>type="dropShadow" x="0" y="5" size="8" spread="0" color="0,0,0,0.12" blend="normal"</desc>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset dx="0" dy="5"/>
+<feGaussianBlur stdDeviation="4"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<path id="path0_fill" d="M 0 3C 0 1.34315 1.34315 0 3 0L 35 0C 36.6569 0 38 1.34315 38 3L 38 24C 38 25.6569 36.6569 27 35 27L 3 27C 1.34315 27 0 25.6569 0 24L 0 3Z"/>
+<path id="path1_fill" d="M 0 0L 38 0L 38 7L 0 7L 0 0Z"/>
+</defs>
+</svg>

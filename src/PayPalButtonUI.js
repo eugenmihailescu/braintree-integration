@@ -61,14 +61,17 @@ function PayPalButtonUI(config) {
         }).appendTo(parentDiv).css({
             "display" : "inline-block",
             "width" : "auto",
-            "position" : "absolute",
             "margin-left" : "10px",
-            "margin-right" : "10px"
+            "margin-right" : "10px",
+            "float" : "left"
         });
 
         // the payment method detail span (here goes the email)
-        $("<span/>").appendTo($("." + id + "-detail")).css({
-            "font-size" : "0.75em"
+        $("<span/>", {
+            "class" : "paypal-payment-method-email"
+        }).appendTo($("." + id + "-detail")).css({
+            "font-size" : "0.75em",
+            "color" : "#0076BF"
         });
 
         // add a Cancel button to its wrapper
@@ -154,6 +157,8 @@ function PayPalButtonUI(config) {
         // do nothing otherwise
         this.onGetCurrency = this.noop;
     }
+
+    this.onPaymentMethodReceived = config.onPaymentMethodReceived || that.noop;
 
     // disable the superclass submit default action
     if (this.buttonOptions.button_type !== "submit") {
@@ -273,6 +278,8 @@ function PayPalButtonUI(config) {
             $(id + "-detail span").text(paymentMethodInfo.details.email);
 
             that.showPaymentMethod();
+
+            that.onPaymentMethodReceived(paymentMethodInfo);
         });
 
     };
@@ -354,6 +361,10 @@ PayPalButtonUI.prototype.postInit = function() {
         }, 100);
 
         that.onReady(paypalInstance);
+
+        $("body").on("cancel_paypal_payment", function() {
+            that.hidePaymentMethod();
+        });
 
     });
 

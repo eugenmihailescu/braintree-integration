@@ -26,7 +26,8 @@
     BraintreeApp.prototype.getIntegrationConf = function(ui_type) {
         var that = this;
 
-        var result = this.getSharedConf();
+        var shared_conf = this.getSharedConf();
+        var result = {};
 
         var cardInputs = {
             card_number : ".bt-" + ui_type + "-wrapper #card_number",
@@ -38,9 +39,10 @@
 
         switch (ui_type) {
         case that.PAYPALBUTTON:
-            delete result.allow3DSPaymentsOny;
-            delete result.ignore3DSIfAVS;
-            $.extend(result, {
+            result.paypal = shared_conf;
+            delete result.paypal.allow3DSPaymentsOny;
+            delete result.paypal.ignore3DSIfAVS;
+            $.extend(result.paypal, {
                 container : ".bt-paypal-wrapper",
                 containerStyle : {
                     css : {}
@@ -48,28 +50,33 @@
                 onGetCurrency : function() {
                     return that.bt_utils.getAccountSettings("paypal.currencyIsoCode");
                 },
-                inputs : $.extend(result.inputs, {
+                onPaymentMethodReceived : function() {
+                },
+                inputs : $.extend(result.paypal.inputs, {
                     amount : "#amount",
                     deviceData : "deviceData"
                 })
             }, that.paypalOptions);
             break;
         case that.DROPINUI:
-            $.extend(result, {
+            result.card = shared_conf;
+            $.extend(result.card, {
                 container : "bt-dropin"
             });
             // we drop the paymentToken as it"s not used by Drop-in class
-            delete result.inputs.paymentToken;
+            delete result.card.inputs.paymentToken;
             break;
         case that.CUSTOMUI:
-            $.extend(result, {
+            result.card = shared_conf;
+            $.extend(result.card, {
                 id : "payment-form",
-                inputs : $.extend({}, result.inputs, cardInputs)
+                inputs : $.extend({}, result.card.inputs, cardInputs)
             });
             break;
         case that.HOSTEDUI:
-            $.extend(result, {
-                inputs : $.extend({}, result.inputs, cardInputs),
+            result.card = shared_conf;
+            $.extend(result.card, {
+                inputs : $.extend({}, result.card.inputs, cardInputs),
                 events : {
                     "blur" : function(event) {
                         console.log(event.emittedBy, "lost focus");
@@ -108,7 +115,8 @@
             });
             break;
         case "3ds":
-            $.extend(result, {
+            result.threeds = shared_conf;
+            $.extend(result.threeds, {
                 inputs : {
                     amount : "#amount"
                 },
@@ -118,21 +126,25 @@
                     hidden : that.HIDDEN,
                     closeBtn : $("#text-close")
                 },
-                onReady : that.ui_obj.set3DSecure,
-                onError : that.ui_obj.processError,
+                onReady : that.ui_obj.card.set3DSecure,
+                onError : that.ui_obj.card.processError,
                 onUserClose : function() {
-                    that.ui_obj.onError("3DS aborted by user");
+                    that.ui_obj.card.onError("3DS aborted by user");
                 },
                 onFailLiabilityShift : function(response) {
-                    that.ui_obj.onError("3DS liability shift failed");
+                    that.ui_obj.card.onError("3DS liability shift failed");
                     console.log(response);
                 },
                 onUseAVSLiabilityShiftFailed : function(response) {
-                    that.ui_obj.onError("3DS liability shift failed => we relay on AVS rules ("
+                    that.ui_obj.card.onError("3DS liability shift failed => we relay on AVS rules ("
                             + that.bt_utils.getAVSChallenges().join(",") + ")");
                     console.log(response);
                 }
             });
+            break;
+        case that.HOSTEDUI_PAYPAL:
+            result = $.extend(that.getIntegrationConf(that.PAYPALBUTTON), that.getIntegrationConf(that.HOSTEDUI));
+            result.card.inputs = $.extend({}, result.card.inputs, cardInputs);
             break;
         }
 

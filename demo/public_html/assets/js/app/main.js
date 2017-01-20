@@ -14,12 +14,12 @@ function BraintreeApp() {
         var result = null;
 
         if (that.FALSE !== that.threeDS_option && that.bt_utils.is3DSEnabled()) {
-            result = new ThreeDSecure(that.getIntegrationConf("3ds"));
+            result = new ThreeDSecure(that.getIntegrationConf("3ds").threeds);
         }
 
-        that.ui_obj.set3DSecure(result);
+        that.ui_obj.card.set3DSecure(result);
         if (!result) {
-            that.ui_obj.allow3DSPaymentsOny = false;
+            that.ui_obj.card.allow3DSPaymentsOny = false;
         }
         $("#threeDS_option").prop(that.DISABLED, !(result || that.FALSE === that.threeDS_option));
         $("#avs_option").prop(that.DISABLED,
@@ -34,24 +34,28 @@ function BraintreeApp() {
 
         switch (ui_type) {
         case that.PAYPALBUTTON:
-            that.ui_obj = new PayPalButtonUI(that.getIntegrationConf(ui_type));
+            that.ui_obj.paypal = new PayPalButtonUI(that.getIntegrationConf(ui_type).paypal);
             url = "paypal/overview/javascript/v3";
             break;
         case that.DROPINUI:
             // setup a Dropin-UI integration
-            that.ui_obj = new DropinUI(that.getIntegrationConf(ui_type));
+            that.ui_obj.card = new DropinUI(that.getIntegrationConf(ui_type).card);
             url = "drop-in/javascript/v2";
             $("#new_payment_method").click();
             $(".customer-payment-methods").addClass(that.HIDDEN);
             break;
-
         case that.CUSTOMUI:
-            that.ui_obj = new CustomUI(that.getIntegrationConf(ui_type));
+            that.ui_obj.card = new CustomUI(that.getIntegrationConf(ui_type).card);
             url = "credit-cards/overview";
             break;
-
         case that.HOSTEDUI:
-            that.ui_obj = new HostedFieldsUI(that.getIntegrationConf(ui_type));
+            that.ui_obj.card = new HostedFieldsUI(that.getIntegrationConf(ui_type).card);
+            url = "hosted-fields/overview/javascript/v3";
+            break;
+        case that.HOSTEDUI_PAYPAL:
+            var conf = that.getIntegrationConf(ui_type);
+            that.ui_obj.paypal = new PayPalButtonUI(conf.paypal);
+            that.ui_obj.card = new HostedFieldsUI(conf.card);
             url = "hosted-fields/overview/javascript/v3";
             break;
         }
@@ -85,7 +89,7 @@ function BraintreeApp() {
                 setIntegration(ui_type);
             });
 
-            if (ui_type === that.PAYPALBUTTON) {
+            if (ui_type === that.PAYPALBUTTON || ui_type === that.HOSTEDUI_PAYPAL) {
                 $('.paypal-options').removeClass(that.HIDDEN);
             } else {
                 $('.paypal-options').addClass(that.HIDDEN);
@@ -95,7 +99,7 @@ function BraintreeApp() {
         $("#threeDS_option").off(that.CHANGE).on(that.CHANGE, function() {
             that.threeDS_option = $(this).val();
 
-            that.ui_obj.allow3DSPaymentsOny = that.TRUE === that.threeDS_option;
+            that.ui_obj.card.allow3DSPaymentsOny = that.TRUE === that.threeDS_option;
             init3DS();
         });
 
@@ -208,7 +212,10 @@ function BraintreeApp() {
 
     this.bt_utils = null;
     this.client_token = null;
-    this.ui_obj = null;
+    this.ui_obj = {
+        card : null,
+        paypal : null
+    };
     this.threeDS_option = $("#threeDS_option").val();
     this.avs_option = $("#avs_option").val();
     this.theme_id = "";
@@ -239,10 +246,16 @@ function BraintreeApp() {
 
     this.tearDown = function() {
 
-        if (that.ui_obj) {
-            that.ui_obj.destroy(function() {
-                delete that.ui_obj;
-                that.ui_obj = null;
+        if (that.ui_obj.card) {
+            that.ui_obj.card.destroy(function() {
+                delete that.ui_obj.card;
+                that.ui_obj.card = null;
+            });
+        }
+        if (that.ui_obj.paypal) {
+            that.ui_obj.paypal.destroy(function() {
+                delete that.ui_obj.paypal;
+                that.ui_obj.paypal = null;
             });
         }
     };
@@ -270,13 +283,15 @@ function BraintreeApp() {
 BraintreeApp.prototype.HIDDEN = "hidden";
 BraintreeApp.prototype.CHANGE = "change";
 BraintreeApp.prototype.CLICK = "click";
-BraintreeApp.prototype.CUSTOMUI = "custom-ui"
-BraintreeApp.prototype.DROPINUI = "drop-in-ui"
-BraintreeApp.prototype.HOSTEDUI = "hosted-ui"
-BraintreeApp.prototype.PAYPALBUTTON = "paypal-button"
-BraintreeApp.prototype.DISABLED = "disabled"
-BraintreeApp.prototype.FALSE = "false"
-BraintreeApp.prototype.TRUE = "true"
+BraintreeApp.prototype.CUSTOMUI = "custom-ui";
+BraintreeApp.prototype.DROPINUI = "drop-in-ui";
+BraintreeApp.prototype.HOSTEDUI = "hosted-ui";
+BraintreeApp.prototype.PAYPALBUTTON = "paypal-button";
+BraintreeApp.prototype.HOSTEDUI_PAYPAL = "hosted-ui-paypal-button";
+
+BraintreeApp.prototype.DISABLED = "disabled";
+BraintreeApp.prototype.FALSE = "false";
+BraintreeApp.prototype.TRUE = "true";
 
 BraintreeApp.prototype.checkout = new Demo({
     formID : "payment-form",

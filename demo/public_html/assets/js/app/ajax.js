@@ -163,7 +163,7 @@
 
         // do not load the new theme while the unload is not done
         monitor = setInterval(function() {
-            if (!that.ui_obj) {
+            if (!(that.ui_obj.card || that.ui_obj.paypal)) {
                 clearInterval(monitor);
                 loadTheme();
             }
