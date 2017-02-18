@@ -2,22 +2,38 @@
 /**
  * Class for HostedFields UI integration (Braintree.js SDK v3)
  * 
- * @param config
- *            The class default configuration
- * @returns
+ * @class
+ * @since 1.0
+ * @author Eugen Mihailescu
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @param {Object}
+ *            config - Default class configuration
+ * @see {@link https://braintree.github.io/braintree-web/3.6.3/HostedFields.html}
  */
 function HostedFieldsUI(config) {
     BraintreeUI3.call(this, config);
 
     var that = this;
 
-    this.events = config.events || {};// hosted fields events
+    var hostedFields = null;// the Braintree hosted fields instance
 
-    this.hostedFields = null;// the Braintree hosted fields instance
+    var events = config.events || {};// hosted fields events
 
+    /**
+     * @inheritdoc
+     * @override
+     * @default hosted-fields
+     */
     this.integrationType = 'hosted-fields'; // this class Braintree integration type
 
-    // validate the card and get a payment nonce
+    /**
+     * Tokenize the card {@link GenericIntegration#inputs|inputs}. On success passes a Braintree payment method nonce to the
+     * {@link GenericIntegration#onPaymentMethodReceived|onPaymentMethodReceived} callback otherwise pass an error to the
+     * {@link GenericIntegration#onError|onError} callback
+     * 
+     * @since 1.0
+     * @returns {boolean} Returns true if no tokenization is needed (eg. when using a Vault payment token), false otherwise
+     */
     this.tokenizeCard = function() {
         var paymentToken = $(that.inputs.paymentToken);
         // we are using a payment token => let the form submit its fields
@@ -25,7 +41,7 @@ function HostedFieldsUI(config) {
             return true;
         }
 
-        that.hostedFields.tokenize(function(err, result) {
+        hostedFields.tokenize(function(err, result) {
             if (err) {
                 that.processError(that.execModuleFn('utils', 'parseError', err));
                 return;
@@ -42,12 +58,16 @@ function HostedFieldsUI(config) {
         return false;
     };
 
-    // binds the checkout input controls to the Braintree hosted fields integration
+    /**
+     * Binds the checkout {@link GenericIntegration#inputs|inputs} controls to the Braintree hosted fields integration
+     * 
+     * @since 1.0
+     */
     this.createFields = function() {
         // helper function that maps the class configuration events to the hosted fields instance's events
         function assignEvents() {
-            $.each(that.events, function(event, callback) {
-                that.hostedFields.on(event, callback);
+            $.each(events, function(event, callback) {
+                hostedFields.on(event, callback);
             });
         }
 
@@ -96,7 +116,7 @@ function HostedFieldsUI(config) {
                 return;
             }
 
-            that.hostedFields = hostedFieldsInstance;
+            hostedFields = hostedFieldsInstance;
 
             that.onReady(hostedFieldsInstance);
 
@@ -110,7 +130,10 @@ function HostedFieldsUI(config) {
 HostedFieldsUI.prototype = Object.create(BraintreeUI3.prototype);
 HostedFieldsUI.prototype.constructor = HostedFieldsUI;
 
-// functions which are run right after initialization
+/**
+ * @inheritdoc
+ * @override
+ */
 HostedFieldsUI.prototype.postInit = function() {
     this.createFields();
 

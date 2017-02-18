@@ -1,21 +1,42 @@
 "use strict";
 /**
- * Class for HostedFields UI integration (Braintree.js SDK v3)
+ * Class for Custom UI integration (Braintree.js SDK v3)
  * 
- * @param config
- *            The class default configuration
- * @returns
+ * @class
+ * @since 1.0
+ * @author Eugen Mihailescu
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @param {Object}
+ *            config - Default class configuration
  */
 function CustomUI(config) {
     BraintreeUI3.call(this, config);
 
     var that = this;
 
+    /**
+     * @inheritdoc
+     * @override
+     * @default custom
+     */
     this.integrationType = 'custom'; // this class Braintree integration type
 
-    this.id = config.id; // the checkout form ID attribute
+    /**
+     * The checkout form ID attribute as provided by the constructor's {@link CustomUI|configuration}
+     * 
+     * @since 1.0
+     * @member {string}
+     */
+    this.id = config.id;
 
-    // validate the card and get a payment nonce
+    /**
+     * Tokenize the card {@link GenericIntegration#inputs|inputs}. On success passes a Braintree payment method nonce to the
+     * {@link GenericIntegration#onPaymentMethodReceived|onPaymentMethodReceived} callback otherwise pass an error to the
+     * {@link GenericIntegration#onError|onError} callback
+     * 
+     * @since 1.0
+     * @returns {boolean} Returns true if no tokenization is needed (eg. when using a Vault payment token), false otherwise
+     */
     this.tokenizeCard = function() {
         var paymentToken = $(that.inputs.paymentToken);
         // we are using a payment token => let the form submit its fields
@@ -77,7 +98,10 @@ function CustomUI(config) {
 CustomUI.prototype = Object.create(BraintreeUI3.prototype);
 CustomUI.prototype.constructor = CustomUI;
 
-// functions which are run right after initialization
+/**
+ * @inheritdoc
+ * @override
+ */
 CustomUI.prototype.postInit = function() {
     $(this.form).on("submit", this.tokenizeCard);
 };

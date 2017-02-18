@@ -1,4 +1,44 @@
-"use strict";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>BraintreeUtils.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BraintreeClient3.html">BraintreeClient3</a><ul class='methods'><li data-type='method'><a href="BraintreeClient3.html#init">init</a></li></ul></li><li><a href="BraintreeUI3.html">BraintreeUI3</a><ul class='methods'><li data-type='method'><a href="BraintreeUI3.html#destroy">destroy</a></li><li data-type='method'><a href="BraintreeUI3.html#init">init</a></li><li data-type='method'><a href="BraintreeUI3.html#postInit">postInit</a></li></ul></li><li><a href="BraintreeUtils.html">BraintreeUtils</a><ul class='methods'><li data-type='method'><a href="BraintreeUtils.html#decodeToken">decodeToken</a></li><li data-type='method'><a href="BraintreeUtils.html#getAccountSettings">getAccountSettings</a></li><li data-type='method'><a href="BraintreeUtils.html#getAVSChallenges">getAVSChallenges</a></li><li data-type='method'><a href="BraintreeUtils.html#is3DSEnabled">is3DSEnabled</a></li><li data-type='method'><a href="BraintreeUtils.html#parseError">parseError</a></li><li data-type='method'><a href="BraintreeUtils.html#toBoolean">toBoolean</a></li></ul></li><li><a href="ConfiguredClass.html">ConfiguredClass</a><ul class='methods'><li data-type='method'><a href="ConfiguredClass.html#execModuleFn">execModuleFn</a></li><li data-type='method'><a href="ConfiguredClass.html#init">init</a></li></ul></li><li><a href="CustomUI.html">CustomUI</a><ul class='methods'><li data-type='method'><a href="CustomUI.html#postInit">postInit</a></li><li data-type='method'><a href="CustomUI.html#tokenizeCard">tokenizeCard</a></li></ul></li><li><a href="DropinUI.html">DropinUI</a><ul class='methods'><li data-type='method'><a href="DropinUI.html#init">init</a></li></ul></li><li><a href="GenericIntegration.html">GenericIntegration</a><ul class='methods'><li data-type='method'><a href="GenericIntegration.html#destroy">destroy</a></li><li data-type='method'><a href="GenericIntegration.html#on3DSFail">on3DSFail</a></li><li data-type='method'><a href="GenericIntegration.html#onBypass3DS">onBypass3DS</a></li><li data-type='method'><a href="GenericIntegration.html#onPaymentMethodReceived">onPaymentMethodReceived</a></li><li data-type='method'><a href="GenericIntegration.html#onReady">onReady</a></li><li data-type='method'><a href="GenericIntegration.html#processError">processError</a></li><li data-type='method'><a href="GenericIntegration.html#setFieldValue">setFieldValue</a></li><li data-type='method'><a href="GenericIntegration.html#submit">submit</a></li></ul></li><li><a href="HostedFieldsUI.html">HostedFieldsUI</a><ul class='methods'><li data-type='method'><a href="HostedFieldsUI.html#createFields">createFields</a></li><li data-type='method'><a href="HostedFieldsUI.html#postInit">postInit</a></li><li data-type='method'><a href="HostedFieldsUI.html#tokenizeCard">tokenizeCard</a></li></ul></li><li><a href="PayPalButtonUI.html">PayPalButtonUI</a><ul class='methods'><li data-type='method'><a href="PayPalButtonUI.html#destroy">destroy</a></li><li data-type='method'><a href="PayPalButtonUI.html#disablePaymentButton">disablePaymentButton</a></li><li data-type='method'><a href="PayPalButtonUI.html#enablePaymentButton">enablePaymentButton</a></li><li data-type='method'><a href="PayPalButtonUI.html#getButtonId">getButtonId</a></li><li data-type='method'><a href="PayPalButtonUI.html#hidePaymentMethod">hidePaymentMethod</a></li><li data-type='method'><a href="PayPalButtonUI.html#init">init</a></li><li data-type='method'><a href="PayPalButtonUI.html#postInit">postInit</a></li><li data-type='method'><a href="PayPalButtonUI.html#showPaymentMethod">showPaymentMethod</a></li><li data-type='method'><a href="PayPalButtonUI.html#teardownHTML">teardownHTML</a></li><li data-type='method'><a href="PayPalButtonUI.html#tokenize">tokenize</a></li></ul></li><li><a href="ThreeDSecure.html">ThreeDSecure</a><ul class='methods'><li data-type='method'><a href="ThreeDSecure.html#init">init</a></li><li data-type='method'><a href="ThreeDSecure.html#removeFrame">removeFrame</a></li><li data-type='method'><a href="ThreeDSecure.html#verifyCard">verifyCard</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">BraintreeUtils.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
 /**
  * Helper utility class for Braintree
  * 
@@ -213,6 +253,25 @@ function BraintreeUtils(token) {
 
         }
 
-        return (err.type ? err.type + ":" : "") + msg.join("<br>");
+        return (err.type ? err.type + ":" : "") + msg.join("&lt;br>");
     };
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Feb 18 2017 20:35:18 GMT+0100 (CET) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

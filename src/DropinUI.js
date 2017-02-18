@@ -2,9 +2,13 @@
 /**
  * Class for Drop-in UI integration (Braintree.js SDK v2)
  * 
- * @param config
- *            The class default configuration
- * @returns
+ * @class
+ * @since 1.0
+ * @author Eugen Mihailescu
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @param {Object}
+ *            config - Default class configuration
+ * @see {@link https://developers.braintreepayments.com/guides/drop-in/android/v2}
  */
 function DropinUI(config) {
     GenericIntegration.call(this, config);
@@ -17,8 +21,19 @@ function DropinUI(config) {
 
     var container = config.container; // the container for Drop-in iFrame
 
+    /**
+     * @inheritdoc
+     * @override
+     * @default dropin
+     */
     this.integrationType = 'dropin'; // this class Braintree integration type
 
+    /**
+     * Braintree Client setup options
+     * 
+     * @member {Object}
+     * @protected
+     */
     this.clientOptions = {
         container : container,
         onPaymentMethodReceived : this.onPaymentMethodReceived,
@@ -32,9 +47,12 @@ function DropinUI(config) {
 DropinUI.prototype = Object.create(GenericIntegration.prototype);
 DropinUI.prototype.constructor = DropinUI;
 
+/**
+ * @inheritdoc
+ * @override
+ */
 DropinUI.prototype.init = function() {
     GenericIntegration.prototype.init.call(this);
 
     braintree.setup(this.client_token, this.integrationType, this.clientOptions);
 };
-

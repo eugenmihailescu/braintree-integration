@@ -1,16 +1,25 @@
 "use strict";
 /**
- * Generic class for a Braintree v3 UI integration (CustomUI|HostedFields)
+ * Generic class for a Braintree v3 UI integration ({@link CustomUI}|{@link HostedFieldsUI}|{@link PayPalButtonUI})
  * 
- * @param config
- *            The class default configuration
- * @returns
+ * @class
+ * @since 1.0
+ * @author Eugen Mihailescu
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @param {Object}
+ *            config - Default class configuration
  */
 function BraintreeUI3(config) {
 
     GenericIntegration.call(this, config);
 
-    // we could possibly use a shared client instead of creating a new instance
+    /**
+     * A shared {@link BraintreeClient3|client} instance provided via the constructor's {@link BraintreeUI3|configuration}
+     * 
+     * @since 1.0
+     * @member {Object}
+     * @default null
+     */
     this.client = config.client || null;
 
 }
@@ -18,7 +27,10 @@ function BraintreeUI3(config) {
 BraintreeUI3.prototype = Object.create(GenericIntegration.prototype);
 BraintreeUI3.prototype.constructor = BraintreeUI3;
 
-// the class default initialization
+/**
+ * @inheritdoc
+ * @override
+ */
 BraintreeUI3.prototype.init = function() {
     GenericIntegration.prototype.init.call(this);
 
@@ -41,12 +53,20 @@ BraintreeUI3.prototype.init = function() {
     }
 };
 
+/**
+ * A callback that is called immediately after initialization
+ * 
+ * @abstract
+ */
 BraintreeUI3.prototype.postInit = function() {
-}
+};
 
-// the class default destructor
+/**
+ * @inheritdoc
+ * @override
+ */
 BraintreeUI3.prototype.destroy = function(onDone) {
     $(this.form).off('submit');
 
     GenericIntegration.prototype.destroy.call(this, onDone);
-}
+};

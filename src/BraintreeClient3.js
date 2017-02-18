@@ -1,10 +1,14 @@
 "use strict";
 /**
- * Generic class for creating a Braintree.js v3 Client
+ * A prototype of a generic Client UI that uses the
+ * {@link https://braintree.github.io/braintree-web/3.8.0/Client.html|Braintree Client SDK v3}
  * 
- * @param config
- *            The client default configuration
- * @returns Object Returns an instance of the class
+ * @since 1.0
+ * @class
+ * @author Eugen Mihailescu
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @param {Object}
+ *            config - The client default configuration
  */
 function BraintreeClient3(config) {
 
@@ -29,7 +33,8 @@ BraintreeClient3.prototype = Object.create(ConfiguredClass.prototype);
 BraintreeClient3.prototype.constructor = BraintreeClient3;
 
 /**
- * Client initialization public method
+ * @inheritdoc
+ * @override
  */
 BraintreeClient3.prototype.init = function() {
     ConfiguredClass.prototype.init.call(this);
@@ -48,4 +53,4 @@ BraintreeClient3.prototype.init = function() {
 
         that.onClientReady(clientInstance);
     });
-}
+};
