@@ -14,6 +14,8 @@ In order to allow full customization of various events it provides also end-poin
 - support for [Customer Vault](https://articles.braintreepayments.com/control-panel/vault/overview) usage
 - support for [PayPal UI](https://articles.braintreepayments.com/guides/paypal/overview) with [Vault](https://articles.braintreepayments.com/control-panel/vault/overview) support (JS v3 SDK)
     - see also the [paypal-button-wrapper](https://github.com/eugenmihailescu/paypal-button-wrapper) project
+- support for [PayPal UI](https://articles.braintreepayments.com/guides/paypal/overview) with [Vault](https://articles.braintreepayments.com/control-panel/vault/overview) support (JS v3 SDK)
+    - see also the [paypal-button-wrapper](https://github.com/eugenmihailescu/paypal-button-wrapper) project
 
 ## Requirements
 * jQuery (with a small effort it can be decoupled from it)
