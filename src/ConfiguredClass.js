@@ -3,10 +3,12 @@
  * A prototype of a generic class that accepts a configuration object which can register a various number of external modules
  * that the class may use.
  * 
+ * @author Eugen Mihailescu <eugenmihailescux@gmail.com>
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @version 1.0
+ * 
  * @class
  * @since 1.0
- * @author Eugen Mihailescu
- * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
  * @param {object}
  *            config - An object that is expected to contain a `modules` object property which contains the list of external
  *            modules to register within class.

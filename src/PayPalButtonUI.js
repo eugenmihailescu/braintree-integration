@@ -1,14 +1,21 @@
 "use strict";
 
 /**
- * @description Class to integrate a PayPal checkout flow (Braintree.js SDK v3)
+ * Wrapper class that integrates the PayPal checkout flow (Braintree.js SDK v3) on a checkout page
+ * 
+ * @author Eugen Mihailescu <eugenmihailescux@gmail.com>
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @version 1.0
+ * 
  * @class
  * @since 1.0
- * @author Eugen Mihailescu
- * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
  * @param {Object}
  *            config - Default class configuration
- * @see {@link https://braintree.github.io/braintree-web/3.6.3/PayPal.html}
+ * @see {@link https://braintree.github.io/braintree-web/3.6.3/PayPal.html|PayPal} Braintree component
+ * @see {@link https://github.com/eugenmihailescu/paypal-button-wrapper|PayPalButton} class
+ * 
+ * @tutorial commonConf
+ * @tutorial paypalButtonUI
  */
 function PayPalButtonUI(config) {
     // NOTE: Error: Permission denied to access property "href (adblocking-software??)

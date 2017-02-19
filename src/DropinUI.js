@@ -1,14 +1,20 @@
 "use strict";
 /**
- * Class for Drop-in UI integration (Braintree.js SDK v2)
+ * Wrapper class that integrates Drop-in UI (Braintree.js SDK v2) on a checkout page
+ * 
+ * @author Eugen Mihailescu <eugenmihailescux@gmail.com>
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @version 1.0
  * 
  * @class
  * @since 1.0
- * @author Eugen Mihailescu
- * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
  * @param {Object}
  *            config - Default class configuration
  * @see {@link https://developers.braintreepayments.com/guides/drop-in/android/v2}
+ * 
+ * @tutorial commonConf
+ * @tutorial dropinUI
+ * @tutorial threeDSecure
  */
 function DropinUI(config) {
     GenericIntegration.call(this, config);

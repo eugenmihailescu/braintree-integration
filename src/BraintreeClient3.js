@@ -1,12 +1,14 @@
 "use strict";
 /**
- * A prototype of a generic Client UI that uses the
- * {@link https://braintree.github.io/braintree-web/3.8.0/Client.html|Braintree Client SDK v3}
+ * Wrapper class that allows the usage of a
+ * {@link https://braintree.github.io/braintree-web/3.8.0/Client.html|Braintree Client SDK v3} on a checkout UI integration
  * 
- * @since 1.0
- * @class
- * @author Eugen Mihailescu
+ * @author Eugen Mihailescu <eugenmihailescux@gmail.com>
  * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @version 1.0
+ * 
+ * @class
+ * @since 1.0
  * @param {Object}
  *            config - The client default configuration
  */

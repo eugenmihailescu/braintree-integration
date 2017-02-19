@@ -1,0 +1,20 @@
+{
+	"customUI": {
+		"title": "CustomUI"
+	},
+	"dropinUI": {
+		"title": "DropinUI"
+	},
+	"hostedFieldsUI": {
+		"title": "HostedFieldsUI"
+	},
+	"paypalButtonUI": {
+		"title": "PayPalButtonUI"
+	},
+	"threeDSecure": {
+		"title": "ThreeDSecure"
+	},
+	"commonConf": {
+		"title": "Common configuration"
+	}
+}

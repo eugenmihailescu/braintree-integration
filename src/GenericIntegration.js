@@ -1,12 +1,14 @@
 "use strict";
 
 /**
- * Abstract class for card payment integration
+ * Abstract class that provides the backbone for a Braintree card payment integration
+ * 
+ * @author Eugen Mihailescu <eugenmihailescux@gmail.com>
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @version 1.0
  * 
  * @class
  * @since 1.0
- * @author Eugen Mihailescu
- * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
  * @param {Object}
  *            config - Default class configuration
  */
@@ -243,7 +245,7 @@ function GenericIntegration(config) {
             if (that.threeDSecure && that.execModuleFn("utils", "is3DSEnabled")) {
                 that.threeDSecure.verifyCard({
                     paymentMethodInfo : paymentMethodInfo,
-                    onSuccess : submit,
+                    onSuccess : that.submit,
                     onError : that.on3DSFail,
                     onBypass3DS : that.onBypass3DS,
                 });
@@ -259,7 +261,13 @@ function GenericIntegration(config) {
         that.submit();
     };
 
-    // setter for ThreeDSecure instance
+    /**
+     * Set the ThreeDSecure instance to use for 3DS-authentication
+     * 
+     * @since 1.0
+     * @param {Object}
+     *            instance - A {@link ThreeDSecure} instance to be used if 3DS authentication is required
+     */
     this.set3DSecure = function(instance) {
         that.threeDSecure = instance;
     };

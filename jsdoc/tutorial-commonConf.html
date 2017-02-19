@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>Tutorial: Common configuration - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,58 +28,57 @@
 
 <div id="main">
     
-
+    <h1 class="page-title">Tutorial: Common configuration</h1>
     
 
+    <section>
 
-
+<header>
     
 
+    <h2>Common configuration</h2>
+</header>
 
+<article>
+    <p>Below is the common configuration used by <a href="tutorial-customUI_.html">CustomUI</a>, <a href="tutorial-dropinUI_.html">DropinUI</a>, <a href="tutorial-hostedFieldsUI_.html">HostedFieldsUI</a>, <a href="tutorial-threeDSecure_.html">ThreeDSecure</a>, <a href="tutorial-paypalButtonUI_.html">PayPalButtonUI</a> tutorials:</p>
+<pre class="prettyprint source lang-javascript"><code>// error handler
+function showError(error) {
+  console.log(error);
+}
 
+// this is a fake token; you should <a href="https://developers.braintreepayments.com/reference/request/client-token/generate/php">generate a server-side Braintree client token</a> instead!
+var client_token = &quot;eyJ3aGF0IjoiYSB0b2tlbml6ZWQgQnJhaW50cmVlIGFycmF5In0=&quot;;
 
+// an helper module used for various functions   
+var bt_utils = new BraintreeUtils(client_token);
 
+// common configuration
+var common = {
+  token: client_token,
+  form: $(&quot;#payment-form&quot;), // the form object given by Id
+  allow3DSPaymentsOny: true, // enabled the 3DS popup
+  ignore3DSIfAVS: false, // 3DS is mandatory, set to TRUE to make it optionally
+  inputs: {
+    card_number: &quot;#card_number&quot;,
+    cvv_number: &quot;#card_cvv&quot;,
+    expiry_date: &quot;#card_expiry&quot;,
+    postal_code: &quot;#card_postal_code&quot;,
+    street_address: &quot;#street_address&quot;,
+    paymentToken: &quot;input[name=payment_method_token]:checked&quot;, // when checked then uses a vaulted payment token instead of card/expiry/cvv input values
+    paymentNonce: &quot;payment_method_nonce&quot;, // the name of hidden input that will host the payment method nonce which should be used by the backend app instead of card|expiry|cvv values 
+    non3DSPayment: &quot;non_3ds_payment&quot; // the name of the hidden input that will signal the fact that 3DS handshake failed 
+  },
+  onError: showError,
+  modules: { // define the available external helper modules
+    &quot;utils&quot;: { // access the exported function of the `utils` module
+      instance: bt_utils,
+      exports: [&quot;decodeToken&quot;, &quot;is3DSEnabled&quot;, &quot;getAVSChallenges&quot;, &quot;parseError&quot;, &quot;toBoolean&quot;, &quot;getAccountSettings&quot;]
+    }
+  }
+};</code></pre>
+</article>
 
-
-
-
-    
-
-
-    <section class="readme">
-        <article><h1>braintree-integration</h1><p>A set of JavaScript classes that integrates your custom checkout UI with the Braintree Payment Gateway. It allows you to bind your own custom HTML checkout form (with input elements like card-number, expiry date, ccv, postal code) and submit a tokenized payment method nonce (instead their raw values) to the original form default action. This makes your Braintree payment integration <a href="https://articles.braintreepayments.com/reference/security/pci-compliance">PCI-DSS</a> compliant. </p>
-<p>In order to allow full customization of various events it provides also end-points for many events like onReady, onError, onSuccess, on3DSFail, onBypass3DS, etc which allows you to customize the status messages displayed on you application UI.</p>
-<p><img src="http://yuml.me/d64b0fe6" alt="class-diagram"></p>
-<h2>Features</h2><ul>
-<li>support for <a href="https://developers.braintreepayments.com/guides/drop-in/javascript/v2">Drop-in UI</a> integration</li>
-<li>support for <a href="https://developers.braintreepayments.com/guides/hosted-fields/overview/javascript/v3">Hosted Fields UI</a> integration</li>
-<li>support for Custom UI integration</li>
-<li>support for different checkout card layouts</li>
-<li>support for <a href="https://developers.braintreepayments.com/guides/3d-secure/overview">3DS</a> and <a href="https://articles.braintreepayments.com/support/guides/fraud-tools/basic/avs-cvv-rules">AVS rules</a></li>
-<li>support for <a href="https://articles.braintreepayments.com/control-panel/vault/overview">Customer Vault</a> usage</li>
-<li>support for <a href="https://articles.braintreepayments.com/guides/paypal/overview">PayPal UI</a> with <a href="https://articles.braintreepayments.com/control-panel/vault/overview">Vault</a> support (JS v3 SDK)<ul>
-<li>see also the <a href="https://github.com/eugenmihailescu/paypal-button-wrapper">paypal-button-wrapper</a> project</li>
-</ul>
-</li>
-<li>support for <a href="https://articles.braintreepayments.com/guides/paypal/overview">PayPal UI</a> with <a href="https://articles.braintreepayments.com/control-panel/vault/overview">Vault</a> support (JS v3 SDK)<ul>
-<li>see also the <a href="https://github.com/eugenmihailescu/paypal-button-wrapper">paypal-button-wrapper</a> project</li>
-</ul>
-</li>
-</ul>
-<h2>Requirements</h2><ul>
-<li>jQuery (with a small effort it can be decoupled from it)</li>
-<li>desktop: IE9+,FF,Chrome,Opera,Safari8+</li>
-<li>IOS =&gt; mobile: Safari8+, Chrome48+; Android =&gt; Native browser 4.4+, Chrome, FF</li>
-<li><a href="https://braintree.github.io/braintree-web/3.8.0/index.html">Braintree JS v3 SDK</a> (except Drop-in integration where <a href="https://js.braintreegateway.com/js/braintree-2.30.0.js">v2 SDK</a> is the only one available as of January, 2017)</li>
-</ul>
-<h2>Other</h2><p>A demo application is included. It makes use of the <a href="https://github.com/braintree/braintree_php_example">https://github.com/braintree/braintree_php_example</a>.</p>
-<p>This is an ongoing project so expect more...</p></article>
-    </section>
-
-
-
-
-
+</section>
 
 </div>
 

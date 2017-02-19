@@ -1,11 +1,13 @@
 "use strict";
 /**
- * Generic class for Braintree ThreeDSecure authentication flow
+ * Wrapper class for Braintree ThreeDSecure authentication flow
+ * 
+ * @author Eugen Mihailescu <eugenmihailescux@gmail.com>
+ * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
+ * @version 1.0
  * 
  * @class
  * @since 1.0
- * @author Eugen Mihailescu
- * @license {@link https://www.gnu.org/licenses/gpl-3.0.txt|GPLv3}
  * @param config
  *            The default authentication configuration
  * 

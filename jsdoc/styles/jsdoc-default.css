@@ -34,6 +34,15 @@ p, ul, ol, blockquote {
   margin-bottom: 1em;
 }
 
+blockquote {
+	padding: 0.15em 1em;
+	color: #999;
+	border-left: 0.25em solid #ddd;
+	margin-left: 1em;
+	background-color: #f7f7f7;
+	border-radius: 3px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
 }

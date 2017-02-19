@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>Tutorial: ThreeDSecure - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,58 +28,118 @@
 
 <div id="main">
     
-
+    <h1 class="page-title">Tutorial: ThreeDSecure</h1>
     
 
+    <section>
 
-
+<header>
     
 
+    <h2>ThreeDSecure</h2>
+</header>
 
+<article>
+    <p>In case the 3DS authentication is required we should create a 3DS authentication handler and also provide a frame for the 3DS authentication popup.</p>
+<p>The 3DS authentication popup frame might look like this:</p>
+<pre class="prettyprint source lang-html"><code>&lt;div id=&quot;modal&quot; class=&quot;hidden&quot;>
+    &lt;div class=&quot;bt-mask&quot;>&lt;/div>
+    &lt;div class=&quot;bt-modal-frame&quot;>
+        &lt;div class=&quot;bt-modal-header&quot;>
+            &lt;div class=&quot;header-text&quot;>Authentication&lt;/div>
+        &lt;/div>
+        &lt;div class=&quot;bt-modal-body&quot;>&lt;/div>
+        &lt;div class=&quot;bt-modal-footer&quot;>
+            &lt;a id=&quot;text-close&quot; href=&quot;#&quot;>Cancel&lt;/a>
+        &lt;/div>
+    &lt;/div>
+&lt;/div></code></pre><p>The JavaScript that initializes and binds the 3DS handler to the above frame:</p>
+<pre class="prettyprint source lang-javascript"><code>// setup the configuration for 3DS authentication
+var threeDconf = {
+  inputs: {
+    amount: &quot;#amount&quot;
+  },
+  frame3ds: {
+    bankFrame: $(&quot;.bt-modal-body&quot;),
+    modal: $(&quot;#modal&quot;),
+    hidden: &quot;hidden&quot;, // a CSS class that hides the frame 
+    closeBtn: $(&quot;#text-close&quot;)
+  },
+  onReady: ui_obj.set3DSecure,
+  onError: showError,
+  onUserClose: function() {
+    ui_obj.onError(&quot;3DS aborted by user&quot;);
+  },
+  onFailLiabilityShift: function(response) {
+    ui_obj.onError(&quot;3DS liability shift failed&quot;);
+    console.log(response);
+  },
+  onUseAVSLiabilityShiftFailed: function(response) {
+    ui_obj.onError(&quot;3DS liability shift failed => we relay on AVS rules (&quot; + bt_utils.getAVSChallenges().join(&quot;,&quot;) + &quot;)&quot;);
+    console.log(response);
+  }
+};
 
+// copy the common configuration to the threeDconf configuration  
+for (p in common) {
+  if (!threeDconf.hasOwnProperty(p) && common.hasOwnProperty(p)) {
+    threeDconf[p] = common[p];
+  }
+}
 
+// finally create the instance using the configuration above
+var tds = new ThreeDSecure(threeDconf);</code></pre><p>For using the 3DS frame you should also stylish the popup using the CSS definition below:</p>
+<pre class="prettyprint source lang-css"><code>@CHARSET &quot;UTF-8&quot;;
 
+#modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    z-index: 100;
+}
 
+.bt-modal-frame {
+    height: 480px;
+    width: 440px;
+    margin: auto;
+    background-color: #eee;
+    z-index: 2;
+    border-radius: 6px;
+}
 
+.bt-modal-body {
+    height: 400px;
+    margin: 0 20px;
+    background-color: white;
+    border: 1px solid lightgray;
+}
 
+.bt-modal-header, .bt-modal-footer {
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+}
 
-    
+.bt-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.8;
+}
 
+.hidden {
+    display: none !important;
+}</code></pre>
+</article>
 
-    <section class="readme">
-        <article><h1>braintree-integration</h1><p>A set of JavaScript classes that integrates your custom checkout UI with the Braintree Payment Gateway. It allows you to bind your own custom HTML checkout form (with input elements like card-number, expiry date, ccv, postal code) and submit a tokenized payment method nonce (instead their raw values) to the original form default action. This makes your Braintree payment integration <a href="https://articles.braintreepayments.com/reference/security/pci-compliance">PCI-DSS</a> compliant. </p>
-<p>In order to allow full customization of various events it provides also end-points for many events like onReady, onError, onSuccess, on3DSFail, onBypass3DS, etc which allows you to customize the status messages displayed on you application UI.</p>
-<p><img src="http://yuml.me/d64b0fe6" alt="class-diagram"></p>
-<h2>Features</h2><ul>
-<li>support for <a href="https://developers.braintreepayments.com/guides/drop-in/javascript/v2">Drop-in UI</a> integration</li>
-<li>support for <a href="https://developers.braintreepayments.com/guides/hosted-fields/overview/javascript/v3">Hosted Fields UI</a> integration</li>
-<li>support for Custom UI integration</li>
-<li>support for different checkout card layouts</li>
-<li>support for <a href="https://developers.braintreepayments.com/guides/3d-secure/overview">3DS</a> and <a href="https://articles.braintreepayments.com/support/guides/fraud-tools/basic/avs-cvv-rules">AVS rules</a></li>
-<li>support for <a href="https://articles.braintreepayments.com/control-panel/vault/overview">Customer Vault</a> usage</li>
-<li>support for <a href="https://articles.braintreepayments.com/guides/paypal/overview">PayPal UI</a> with <a href="https://articles.braintreepayments.com/control-panel/vault/overview">Vault</a> support (JS v3 SDK)<ul>
-<li>see also the <a href="https://github.com/eugenmihailescu/paypal-button-wrapper">paypal-button-wrapper</a> project</li>
-</ul>
-</li>
-<li>support for <a href="https://articles.braintreepayments.com/guides/paypal/overview">PayPal UI</a> with <a href="https://articles.braintreepayments.com/control-panel/vault/overview">Vault</a> support (JS v3 SDK)<ul>
-<li>see also the <a href="https://github.com/eugenmihailescu/paypal-button-wrapper">paypal-button-wrapper</a> project</li>
-</ul>
-</li>
-</ul>
-<h2>Requirements</h2><ul>
-<li>jQuery (with a small effort it can be decoupled from it)</li>
-<li>desktop: IE9+,FF,Chrome,Opera,Safari8+</li>
-<li>IOS =&gt; mobile: Safari8+, Chrome48+; Android =&gt; Native browser 4.4+, Chrome, FF</li>
-<li><a href="https://braintree.github.io/braintree-web/3.8.0/index.html">Braintree JS v3 SDK</a> (except Drop-in integration where <a href="https://js.braintreegateway.com/js/braintree-2.30.0.js">v2 SDK</a> is the only one available as of January, 2017)</li>
-</ul>
-<h2>Other</h2><p>A demo application is included. It makes use of the <a href="https://github.com/braintree/braintree_php_example">https://github.com/braintree/braintree_php_example</a>.</p>
-<p>This is an ongoing project so expect more...</p></article>
-    </section>
-
-
-
-
-
+</section>
 
 </div>
 

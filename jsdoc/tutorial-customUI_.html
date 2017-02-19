@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>Tutorial: CustomUI - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,58 +28,73 @@
 
 <div id="main">
     
-
+    <h1 class="page-title">Tutorial: CustomUI</h1>
     
 
+    <section>
 
-
+<header>
     
 
+    <h2>CustomUI</h2>
+</header>
 
-
-
-
-
-
-
-
-    
-
-
-    <section class="readme">
-        <article><h1>braintree-integration</h1><p>A set of JavaScript classes that integrates your custom checkout UI with the Braintree Payment Gateway. It allows you to bind your own custom HTML checkout form (with input elements like card-number, expiry date, ccv, postal code) and submit a tokenized payment method nonce (instead their raw values) to the original form default action. This makes your Braintree payment integration <a href="https://articles.braintreepayments.com/reference/security/pci-compliance">PCI-DSS</a> compliant. </p>
-<p>In order to allow full customization of various events it provides also end-points for many events like onReady, onError, onSuccess, on3DSFail, onBypass3DS, etc which allows you to customize the status messages displayed on you application UI.</p>
-<p><img src="http://yuml.me/d64b0fe6" alt="class-diagram"></p>
-<h2>Features</h2><ul>
-<li>support for <a href="https://developers.braintreepayments.com/guides/drop-in/javascript/v2">Drop-in UI</a> integration</li>
-<li>support for <a href="https://developers.braintreepayments.com/guides/hosted-fields/overview/javascript/v3">Hosted Fields UI</a> integration</li>
-<li>support for Custom UI integration</li>
-<li>support for different checkout card layouts</li>
-<li>support for <a href="https://developers.braintreepayments.com/guides/3d-secure/overview">3DS</a> and <a href="https://articles.braintreepayments.com/support/guides/fraud-tools/basic/avs-cvv-rules">AVS rules</a></li>
-<li>support for <a href="https://articles.braintreepayments.com/control-panel/vault/overview">Customer Vault</a> usage</li>
-<li>support for <a href="https://articles.braintreepayments.com/guides/paypal/overview">PayPal UI</a> with <a href="https://articles.braintreepayments.com/control-panel/vault/overview">Vault</a> support (JS v3 SDK)<ul>
-<li>see also the <a href="https://github.com/eugenmihailescu/paypal-button-wrapper">paypal-button-wrapper</a> project</li>
+<article>
+    <p>In this tutorial we will learn how to integrate a custom HTML checkout UI with a <a href="CustomUI.html"><code>CustomUI</code></a> Braintree integration.</p>
+<p>Creating a Braintree Custom UI checkout integration is straightforward:</p>
+<ul>
+<li>a HTML with a FORM and a card number, expiry date and cvv INPUT elements (optionally a <code>postal_code</code>, <code>street_address</code> or a vaulted token might be used)</li>
+<li>a JavaScript script that binds the INPUT elements to a Braintree Custom UI object</li>
 </ul>
+<p>Firstly create a simple HTML checkout form:</p>
+<pre class="prettyprint source lang-html"><code>&lt;form id=&quot;payment-form&quot; action=&quot;checkout.php&quot;>
+  &lt;label for=&quot;card_number&quot;>Number&lt;/label>
+  &lt;input id=&quot;card_number&quot; type=&quot;text&quot;>
+
+  &lt;label for=&quot;card_expiry&quot;>Expiry date&lt;/label>
+  &lt;input id=&quot;card_expiry&quot; type=&quot;text&quot;>
+
+  &lt;label for=&quot;card_cvv&quot;>CVV&lt;/label>
+  &lt;input id=&quot;card_cvv&quot; type=&quot;text&quot;>
+
+  &lt;label for=&quot;amount&quot;>Amount&lt;/label>
+  &lt;input id=&quot;amount&quot; name=&quot;amount&quot; type=&quot;text&quot;>
+  &lt;!-- optionally input fields
+    &lt;input id=&quot;card_postal_code&quot; name=&quot;card_postal_code&quot; type=&quot;text&quot;>
+    &lt;input id=&quot;street_address&quot; name=&quot;street_address&quot; type=&quot;text&quot;>
+    &lt;input name=&quot;payment_method_token&quot; type=&quot;checkbox&quot;>
+-->
+  &lt;input type=&quot;submit&quot; value=&quot;Pay Now&quot;>
+&lt;/form></code></pre><blockquote>
+<p><strong>Note</strong>: make sure the card fields does not have name attribute set (we don't want to have the customer's card info on ous server, it's safe that way!)</p>
+</blockquote>
+<p>Secondly define a JavaScript that setup a Braintree CustomUI for our custom checkout above. Please prepend also the code shown on <a href="tutorial-commonConf.html">Common configuration</a> tutorial.</p>
+<pre class="prettyprint source lang-javascript"><code>// copy the <a href="tutorial-commonConf.html">Common configuration</a> to our CustomUI configuration
+var conf = common;
+
+// extend the default configuration
+conf.id = &quot;payment-form&quot; // the checkout form identifier
+
+// setup our Custom UI handler using the above configuration
+var ui_obj = new CustomUI(conf);
+
+// whenever clean-up is required
+// ui_obj.destroy(function(){console.log(&quot;integration cleaned-up&quot;);});</code></pre><p>By clicking the <code>Pay Now</code> button the CustomUI will intercept the form submit action and will:</p>
+<ol>
+<li>tokenize the card INPUT elements<ol>
+<li>eventually will launch a 3DS authentication popup if 3DS enabled and 3DS-enrolled card (see the <a href="tutorial-threeDSecure_.html">ThreeDSecure</a> tutorial)  </li>
+</ol>
 </li>
-<li>support for <a href="https://articles.braintreepayments.com/guides/paypal/overview">PayPal UI</a> with <a href="https://articles.braintreepayments.com/control-panel/vault/overview">Vault</a> support (JS v3 SDK)<ul>
-<li>see also the <a href="https://github.com/eugenmihailescu/paypal-button-wrapper">paypal-button-wrapper</a> project</li>
-</ul>
+<li>on success will:<ol>
+<li>set the <code>payment_method_nonce</code> hidden field with a nonce coresponding to (1) above</li>
+<li>will submit the form to the backend app where we can create a Braintree <a href="https://developers.braintreepayments.com/reference/request/transaction/sale/php">sale transaction</a> by using the <code>payment_method_nonce</code> value</li>
+</ol>
 </li>
-</ul>
-<h2>Requirements</h2><ul>
-<li>jQuery (with a small effort it can be decoupled from it)</li>
-<li>desktop: IE9+,FF,Chrome,Opera,Safari8+</li>
-<li>IOS =&gt; mobile: Safari8+, Chrome48+; Android =&gt; Native browser 4.4+, Chrome, FF</li>
-<li><a href="https://braintree.github.io/braintree-web/3.8.0/index.html">Braintree JS v3 SDK</a> (except Drop-in integration where <a href="https://js.braintreegateway.com/js/braintree-2.30.0.js">v2 SDK</a> is the only one available as of January, 2017)</li>
-</ul>
-<h2>Other</h2><p>A demo application is included. It makes use of the <a href="https://github.com/braintree/braintree_php_example">https://github.com/braintree/braintree_php_example</a>.</p>
-<p>This is an ongoing project so expect more...</p></article>
-    </section>
+<li>on error will display an error alert message</li>
+</ol>
+</article>
 
-
-
-
-
+</section>
 
 </div>
 
