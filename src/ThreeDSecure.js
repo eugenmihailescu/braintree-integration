@@ -154,6 +154,10 @@ function ThreeDSecure(config) {
      * @see GenericIntegration#onPaymentMethodReceived
      */
     this.verifyCard = function(data) {
+        if (false === that.bt_threeDSecure) {
+            return;
+        }
+
         that.bt_threeDSecure.verifyCard({
             amount : $(that.inputs.amount).val(),
             nonce : data.paymentMethodInfo.nonce,
@@ -184,6 +188,17 @@ function ThreeDSecure(config) {
                 data.onSuccess(response.nonce);
             }
         });
+    };
+
+    /**
+     * Check whether the 3DS is available
+     * 
+     * @since 1.0
+     * @returns {boolean} Returns true if 3DS authentication is available, false otherwise
+     * @see {@link ThreeDSecure#bt_threeDSecure|bt_threeDSecure}
+     */
+    this.is_available = function() {
+        return that.bt_threeDSecure;
     };
 
     this.init();

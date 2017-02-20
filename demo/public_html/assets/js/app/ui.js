@@ -2,11 +2,11 @@
     "use strict";
 
     BraintreeApp.prototype.blockUI = function() {
-        $("#loading").removeClass(this.HIDDEN);
+        $("#loading").removeClass(BraintreeApp.prototype.HIDDEN);
     };
 
     BraintreeApp.prototype.unBlockUI = function() {
-        $("#loading").addClass(this.HIDDEN);
+        $("#loading").addClass(BraintreeApp.prototype.HIDDEN);
     };
 
     BraintreeApp.prototype.error_function = function(message) {
@@ -17,7 +17,7 @@
         // instead the BraintreeApp.prototype must be used to access BraintreeApp static methods
         BraintreeApp.prototype.checkout.notify("error");
 
-        $("button[type=\"submit\"]").val("Test Transaction").removeAttr(this.DISABLED);
+        $("button[type=\"submit\"]").val("Test Transaction").removeAttr(BraintreeApp.prototype.DISABLED);
 
         BraintreeApp.prototype.unBlockUI();
     };

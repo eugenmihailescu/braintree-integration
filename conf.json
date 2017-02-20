@@ -19,8 +19,8 @@
 		"destination": "jsdoc",
 		"recurse": true,
 		"readme": "README.md",
-		"template": "/home/eugen/node_modules/minami",
-		"tutorials": "tutorials/"
+		"tutorials": "tutorials/",
+		"template": ""
 	},
 	"templates": {
 		"cleverLinks": true,

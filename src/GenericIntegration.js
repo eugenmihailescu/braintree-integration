@@ -242,7 +242,7 @@ function GenericIntegration(config) {
     this.onPaymentMethodReceived = function(paymentMethodInfo) {
         // CreditCard [not:PayPalAccount|ApplePayCard|AndroidPayCard]
         if ("CreditCard" === paymentMethodInfo.type) {
-            if (that.threeDSecure && that.execModuleFn("utils", "is3DSEnabled")) {
+            if (that.threeDSecure && that.threeDSecure.is_available() && that.execModuleFn("utils", "is3DSEnabled")) {
                 that.threeDSecure.verifyCard({
                     paymentMethodInfo : paymentMethodInfo,
                     onSuccess : that.submit,
