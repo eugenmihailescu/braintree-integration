@@ -30,6 +30,7 @@ function GenericIntegration(config) {
      *            name - The hidden field name to append
      * @param {string|number}
      *            value - The hidden field value
+     * @example myInstance.setFieldValue("payment_method_nonce", "gt49b3k3c7");
      */
     this.setFieldValue = function(name, value) {
         var field = $("input[name=\"" + name + "\"]");
@@ -162,12 +163,13 @@ function GenericIntegration(config) {
     // \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     /**
-     * Callback to backup the BT integration handle necessary on instance destroy On error it destroys&recreates the
-     * integration then notify the error callback.
+     * When an error is detected it destroys & reinitializes the Braintree integration then notify the error callback.
      * 
      * @since 1.0
-     * @param {string=}
-     *            message - When defined it is passed to the {@link GenericIntegration#onError|onError} callback
+     * @param {(string|Object)=}
+     *            message - The error message
+     * @see {@link BraintreeUtils|parseError}
+     * @see {@link GenericIntegration#onError|onError}
      */
     this.processError = function(message) {
         if (that.integration_instance) {
@@ -192,7 +194,8 @@ function GenericIntegration(config) {
      * 
      * @since 1.0
      * @param {Object}
-     *            integration - The instance of the created integration object
+     *            integration - The instance of the created integration object ({@link CustomUI}, {@link DropinUI},
+     *            {@link HostedFieldsUI}, {@link PayPalButtonUI})
      */
     this.onReady = function(integration) {
         that.integration_instance = integration;
@@ -233,7 +236,8 @@ function GenericIntegration(config) {
      * 
      * @since 1.0
      * @param {Object}
-     *            paymentMethodInfo - An object that encapsulates the properties and callbacks passed by the caller
+     *            paymentMethodInfo - An object that encapsulates the properties (nonce, type) and eventually other callback
+     *            properties
      * @see {@link CustomUI#tokenizeCard}
      * @see {@link HostedFieldsUI#tokenizeCard}
      * @see {@link PayPalButtonUI#tokenize}

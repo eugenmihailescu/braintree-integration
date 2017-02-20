@@ -3,7 +3,7 @@ A set of JavaScript classes that integrates your custom checkout UI with the Bra
 
 In order to allow full customization of various events it provides also end-points for many events like onReady, onError, onSuccess, on3DSFail, onBypass3DS, etc which allows you to customize the status messages displayed on you application UI.
 
-![class-diagram](http://yuml.me/d64b0fe6)
+![class-diagram](http://yuml.me/bb0173d1)
 
 ## Features
 - support for [Drop-in UI](https://developers.braintreepayments.com/guides/drop-in/javascript/v2) integration

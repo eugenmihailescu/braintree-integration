@@ -152,6 +152,8 @@ function ThreeDSecure(config) {
      *            {@link https://braintree.github.io/braintree-web/3.6.3/ThreeDSecure.html#verifyCard|Braintree's verifyCard}
      *            method
      * @see GenericIntegration#onPaymentMethodReceived
+     * @example myInstance.verifyCard({ paymentMethodInfo: { nonce: "5wh9memdzg", type: "CreditCard" }, onSuccess:
+     *          function(nonce) {}, onError: function() {}, onBypass3DS: function(response) {} });
      */
     this.verifyCard = function(data) {
         if (false === that.bt_threeDSecure) {
