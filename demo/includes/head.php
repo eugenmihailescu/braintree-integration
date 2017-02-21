@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <head>
 <title>BraintreePHPExample</title>
 <link rel="icon" href="assets/img/favicon.png">

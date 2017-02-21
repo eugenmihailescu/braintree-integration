@@ -4,7 +4,7 @@ require_once ("../includes/braintree_utils.php");
 require_once ("../includes/ajax.php");
 
 ?>
-
+<!DOCTYPE html>
 <html>
 <?php require_once("../includes/head.php"); ?>
 <body>
