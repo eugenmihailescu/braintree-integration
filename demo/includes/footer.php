@@ -14,17 +14,17 @@ $optimization = ".min"; // ".min",""
 <script>
 var client_sdk={"sdk2":"<?php echo $sdk2_version?>","sdk3":"<?php echo $sdk3_version?>","sufix":"<?php echo $optimization;?>"};
 </script>
-<!-- SDK v2 -->
+<!-- Braintree SDK v2 -->
 <script src="https://js.braintreegateway.com/js/braintree-<?php echo $sdk2_version;?>.js"></script>
 
-<!-- SDK v3 -->
+<!-- Braintree SDK v3 -->
 <script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/client<?php echo $optimization;?>.js"></script>
 <script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/three-d-secure<?php echo $optimization;?>.js"></script>
 <script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/hosted-fields<?php echo $optimization;?>.js"></script>
 <script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/paypal<?php echo $optimization;?>.js"></script>
 <script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/data-collector<?php echo $optimization;?>.js"></script>
 
-<!-- our UI JS classes -->
+<!-- our Braintree UI JS classes -->
 <script src="assets/js/integration/InputMask.js"></script>
 <script src="assets/js/integration/BraintreeUtils.js"></script>
 <script src="assets/js/integration/ConfiguredClass.js"></script>
@@ -37,6 +37,8 @@ var client_sdk={"sdk2":"<?php echo $sdk2_version?>","sdk3":"<?php echo $sdk3_ver
 <script src="assets/js/integration/HostedFieldsUI.js"></script>
 <script src="assets/js/integration/PayPalButton.js"></script>
 <script src="assets/js/integration/PayPalButtonUI.js"></script>
+
+<!-- our demo app class -->
 <script src="assets/js/app/main.js"></script>
 <?php
 foreach (glob($app_js_path . '*.js') as $js_file)
@@ -44,6 +46,8 @@ foreach (glob($app_js_path . '*.js') as $js_file)
         echo '<script src="' . $app_js_path . basename($js_file) . '"></script>', PHP_EOL;
     }
 ?>
+
+<!-- demo app class -->
 <script type="text/javascript">
 <?php
 $env_filename = __DIR__ . '/../.env';

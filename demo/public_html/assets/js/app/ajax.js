@@ -122,7 +122,7 @@
             };
 
             var to_script = function(item) {
-                return "<script id=\"" + that.get_id(item) + "\" data-plugin=\"" + that.name + "\" src=\"" + item + "\" />";
+                return "<script id=\"" + that.get_id(item) + "\" data-plugin=\"" + that.name + "\" src=\"" + item + "\"/>";
             };
 
             var addToHead = function(array, is_style) {
@@ -133,6 +133,9 @@
                 }).join("");
 
                 if (a.length) {
+                    $.ajaxPrefilter(function(options, original_Options, jqXHR) {
+                        options.async = true;
+                    });
                     $(a).appendTo("head");
                 }
             };
