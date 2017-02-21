@@ -28,9 +28,10 @@ function DropinUI(config) {
     var container = config.container; // the container for Drop-in iFrame
 
     /**
+     * @since 1.0
      * @inheritdoc
      * @override
-     * @default dropin
+     * @default
      */
     this.integrationType = 'dropin'; // this class Braintree integration type
 
@@ -42,7 +43,9 @@ function DropinUI(config) {
      */
     this.clientOptions = {
         container : container,
-        onPaymentMethodReceived : this.onPaymentMethodReceived,
+        onPaymentMethodReceived : function(paymentMethodInfo) {
+            that.onPaymentMethodReceived.call(that, paymentMethodInfo);
+        },
         onReady : this.onReady,
         onError : onBraintreeError
     };
@@ -54,6 +57,7 @@ DropinUI.prototype = Object.create(GenericIntegration.prototype);
 DropinUI.prototype.constructor = DropinUI;
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */

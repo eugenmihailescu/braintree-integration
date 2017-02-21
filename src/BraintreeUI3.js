@@ -31,6 +31,7 @@ BraintreeUI3.prototype = Object.create(GenericIntegration.prototype);
 BraintreeUI3.prototype.constructor = BraintreeUI3;
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */
@@ -65,11 +66,15 @@ BraintreeUI3.prototype.postInit = function() {
 };
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */
 BraintreeUI3.prototype.destroy = function(onDone) {
     $(this.form).off('submit');
+
+    $("body").off("init_paypal_payment");
+    $("body").off("cancel_paypal_payment");
 
     GenericIntegration.prototype.destroy.call(this, onDone);
 };

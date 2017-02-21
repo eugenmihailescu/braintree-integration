@@ -126,11 +126,15 @@
             };
 
             var addToHead = function(array, is_style) {
-                $($.map($.map(array, function(a) {
+                var a = $.map($.map(array, function(a) {
                     return a;
                 }).filter(only_once), function(item) {
                     return is_style ? to_style(item) : to_script(item);
-                }).join("")).appendTo("head");
+                }).join("");
+
+                if (a.length) {
+                    $(a).appendTo("head");
+                }
             };
 
             that.post_ajax_request({

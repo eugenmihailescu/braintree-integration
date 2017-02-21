@@ -8,13 +8,13 @@
 		<div class="form-group col-xs-8">
 			<label class="control-label">Card Number</label>
 			<!--  Fields div container -->
-			<input type="text" min="12" class="form-control" id="card_number" name="card_number" /> <span class="helper-text"></span>
+			<input type="text" min="12" class="form-control" id="card_number" /> <span class="helper-text"></span>
 		</div>
 		<div class="form-group col-xs-4">
 			<label class="control-label ">Expiration Date</label>
 			<div>
 				<!--  Fields div container -->
-				<input type="text" min="5" maxlength="7" class="form-control" id="card_expiry" name="card_expiry" />
+				<input type="text" min="5" maxlength="7" class="form-control" id="card_expiry" />
 			</div>
 		</div>
 	</div>
@@ -22,7 +22,7 @@
 		<div class="form-group col-xs-4">
 			<label class="control-label">Security Code</label>
 			<!--  Fields div container -->
-			<input type="text" min="3" maxlength="4" class="form-control" id="card_cvv" name="card_cvv">
+			<input type="text" min="3" maxlength="4" class="form-control" id="card_cvv">
 		</div>
 		<div class="form-group col-xs-4">
 			<label class="control-label">Zipcode</label>

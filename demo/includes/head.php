@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <head>
 <title>BraintreePHPExample</title>
 <link rel="icon" href="assets/img/favicon.png">
@@ -35,6 +36,7 @@
 	position: fixed;
 	width: 100%;
 	height: 100%;
+	z-index: 9998;
 }
 
 .loading-mask {
@@ -44,7 +46,7 @@
 }
 
 .cssload-container {
-	z-index: 1;
+	z-index: 9999;
 	background-image: url('/assets/img/ring-alt.gif');
 	background-repeat: no-repeat;
 	background-position: center;

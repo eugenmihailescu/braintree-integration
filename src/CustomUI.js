@@ -10,7 +10,7 @@
  * @since 1.0
  * @param {Object}
  *            config - Default class configuration
- *            
+ * 
  * @tutorial commonConf
  * @tutorial customUI
  * @tutorial threeDSecure
@@ -21,9 +21,10 @@ function CustomUI(config) {
     var that = this;
 
     /**
+     * @since 1.0
      * @inheritdoc
      * @override
-     * @default custom
+     * @default
      */
     this.integrationType = 'custom'; // this class Braintree integration type
 
@@ -105,9 +106,23 @@ CustomUI.prototype = Object.create(BraintreeUI3.prototype);
 CustomUI.prototype.constructor = CustomUI;
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */
 CustomUI.prototype.postInit = function() {
-    $(this.form).on("submit", this.tokenizeCard);
+    var that = this;
+    var init = function() {
+        $(that.form).on("submit", that.tokenizeCard);
+    }
+
+    // for cases when PayPal button and HostedFields are mutual exclusive
+    $("body").on("init_paypal_payment", function() {
+        $(that.form).off("submit");
+    });
+    $("body").on("cancel_paypal_payment", function() {
+        init();
+    });
+
+    init();
 };

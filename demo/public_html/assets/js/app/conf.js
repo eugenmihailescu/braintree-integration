@@ -50,8 +50,6 @@
                 onGetCurrency : function() {
                     return that.bt_utils.getAccountSettings("paypal.currencyIsoCode");
                 },
-                onPaymentMethodReceived : function() {
-                },
                 inputs : $.extend(result.paypal.inputs, {
                     amount : "#amount",
                     deviceData : "deviceData"

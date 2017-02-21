@@ -8,14 +8,14 @@
 		<div class="form-group col-xs-8">
 			<label class="control-label">Card Number</label>
 			<!--  Fields div container -->
-			<div class="form-control" id="card_number" name="card_number"></div>
+			<div class="form-control" id="card_number"></div>
 			<span class="helper-text"></span>
 		</div>
 		<div class="form-group col-xs-4">
 			<label class="control-label">Expiration Date</label>
 			<div class="">
 				<!--  Fields div container -->
-				<div class="form-control" id="card_expiry" name="card_expiry"></div>
+				<div class="form-control" id="card_expiry"></div>
 			</div>
 		</div>
 	</div>
@@ -23,7 +23,7 @@
 		<div class="form-group col-xs-4">
 			<label class="control-label">Security Code</label>
 			<!--  Fields div container -->
-			<div class="form-control" id="card_cvv" name="card_cvv"></div>
+			<div class="form-control" id="card_cvv"></div>
 		</div>
 		<div class="form-group col-xs-4">
 			<label class="control-label">Zipcode</label>

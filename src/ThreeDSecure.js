@@ -156,7 +156,7 @@ function ThreeDSecure(config) {
      *          function(nonce) {}, onError: function() {}, onBypass3DS: function(response) {} });
      */
     this.verifyCard = function(data) {
-        if (false === that.bt_threeDSecure) {
+        if (!that.is_available()) {
             return;
         }
 
@@ -200,7 +200,7 @@ function ThreeDSecure(config) {
      * @see {@link ThreeDSecure#bt_threeDSecure|bt_threeDSecure}
      */
     this.is_available = function() {
-        return that.bt_threeDSecure;
+        return that.bt_threeDSecure !== false;
     };
 
     this.init();
@@ -210,6 +210,7 @@ ThreeDSecure.prototype = Object.create(BraintreeClient3.prototype);
 ThreeDSecure.prototype.constructor = ThreeDSecure;
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */

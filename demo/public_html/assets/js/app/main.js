@@ -80,6 +80,8 @@ function BraintreeApp() {
         var paypal_button_options = [ "color", "size", "shape", "label", "tagline", "style" ];
 
         $("#ui_selector").off(that.CHANGE).on(that.CHANGE, function() {
+            $(".card-wrapper").show();
+            
             var ui_type = $(this).val();
 
             that.update_theme_list(ui_type);

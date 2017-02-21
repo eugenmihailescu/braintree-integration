@@ -51,9 +51,13 @@ function GenericIntegration(config) {
      * 
      * @since 1.0
      * @param {string=}
-     *            nonce - Not used in this version
+     *            nonce - An optional payment method nonce that will be submitted to the backend server
      */
     this.submit = function(nonce) {
+        if (that.UNDEF !== typeof nonce) {
+            that.setFieldValue(that.inputs.paymentNonce, nonce);
+        }
+
         that.form.off("submit").trigger("submit");
     };
 
@@ -232,40 +236,6 @@ function GenericIntegration(config) {
     };
 
     /**
-     * A callback called after a valid tokenization that sends the payment method nonce
-     * 
-     * @since 1.0
-     * @param {Object}
-     *            paymentMethodInfo - An object that encapsulates the properties (nonce, type) and eventually other callback
-     *            properties
-     * @see {@link CustomUI#tokenizeCard}
-     * @see {@link HostedFieldsUI#tokenizeCard}
-     * @see {@link PayPalButtonUI#tokenize}
-     * @see {@link DropinUI#clientOptions}
-     */
-    this.onPaymentMethodReceived = function(paymentMethodInfo) {
-        // CreditCard [not:PayPalAccount|ApplePayCard|AndroidPayCard]
-        if ("CreditCard" === paymentMethodInfo.type) {
-            if (that.threeDSecure && that.threeDSecure.is_available() && that.execModuleFn("utils", "is3DSEnabled")) {
-                that.threeDSecure.verifyCard({
-                    paymentMethodInfo : paymentMethodInfo,
-                    onSuccess : that.submit,
-                    onError : that.on3DSFail,
-                    onBypass3DS : that.onBypass3DS,
-                });
-                return;
-            }
-            if (that.allow3DSPaymentsOny) {
-                return that.on3DSFail();
-            }
-        }
-
-        that.setFieldValue(that.inputs.paymentNonce, paymentMethodInfo.nonce);
-
-        that.submit();
-    };
-
-    /**
      * Set the ThreeDSecure instance to use for 3DS-authentication
      * 
      * @since 1.0
@@ -305,4 +275,43 @@ GenericIntegration.prototype.destroy = function(onDone) {
     } else {
         onDone();
     }
+};
+
+/**
+ * A callback called after a valid tokenization that sends the payment method nonce
+ * 
+ * @since 1.0
+ * @param {Object}
+ *            paymentMethodInfo - An object that encapsulates the properties (nonce, type) and eventually other callback
+ *            properties
+ * @see {@link CustomUI#tokenizeCard}
+ * @see {@link HostedFieldsUI#tokenizeCard}
+ * @see {@link PayPalButtonUI#tokenize}
+ * @see {@link DropinUI#clientOptions}
+ */
+GenericIntegration.prototype.onPaymentMethodReceived = function(paymentMethodInfo) {
+    // CreditCard [not:PayPalAccount|ApplePayCard|AndroidPayCard]
+    if ("CreditCard" === paymentMethodInfo.type) {
+        if (this.threeDSecure && this.threeDSecure.is_available() && this.execModuleFn("utils", "is3DSEnabled")) {
+
+            this.threeDSecure.verifyCard({
+                paymentMethodInfo : paymentMethodInfo,
+                onSuccess : this.submit,
+                onError : this.on3DSFail,
+                onBypass3DS : this.onBypass3DS,
+            });
+            return;
+        }
+        if (this.allow3DSPaymentsOny) {
+            return this.on3DSFail();
+        }
+    }
+
+    this.setFieldValue(this.inputs.paymentNonce, paymentMethodInfo.nonce);
+
+    if ("PayPalAccount" === paymentMethodInfo.type) {
+        return;
+    }
+
+    this.submit();
 };

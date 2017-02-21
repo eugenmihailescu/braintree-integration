@@ -4,8 +4,8 @@
 			<ul class="card-form__layers">
 				<li class="card-form__layer">
 					<form action="">
-						<input type="text" min="12" id="card_number" name="card_number"
-							class="card-form__input card-form__hosted-field" placeholder="•••• •••• •••• ••••" />
+						<input type="text" min="12" id="card_number" class="card-form__input card-form__hosted-field"
+							placeholder="•••• •••• •••• ••••" />
 					</form>
 				</li>
 			</ul>
@@ -14,8 +14,8 @@
 			<ul class="card-form__layers">
 				<li class="card-form__layer">
 					<form action="">
-						<input type="text" min="5" maxlength="7" id="card_expiry" name="card_expiry"
-							class="card-form__input card-form__hosted-field" placeholder="MM/YY" />
+						<input type="text" min="5" maxlength="7" id="card_expiry" class="card-form__input card-form__hosted-field"
+							placeholder="MM/YY" />
 					</form>
 				</li>
 			</ul>
@@ -24,7 +24,7 @@
 			<ul class="card-form__layers">
 				<li class="card-form__layer">
 					<form action="">
-						<input type="text" min="3" maxlength="4" id="card_cvv" name="card_cvv" class="card-form__input card-form__hosted-field"
+						<input type="text" min="3" maxlength="4" id="card_cvv" class="card-form__input card-form__hosted-field"
 							placeholder="••••" />
 					</form>
 				</li>

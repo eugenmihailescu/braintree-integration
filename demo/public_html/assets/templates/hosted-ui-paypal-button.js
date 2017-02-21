@@ -9,5 +9,6 @@ $('.pay-select__item').on('click', function() {
     } else {
         $('.select-body__content').removeClass('is-active');
         $('.select-body--paypal').addClass('is-active');
+        $("body").trigger("init_paypal_payment");
     }
 });

@@ -131,9 +131,10 @@ function PayPalButtonUI(config) {
     this.dataCollectorInstance = null;
 
     /**
+     * @since 1.0
      * @inheritdoc
      * @override
-     * @default paypal
+     * @default
      */
     this.integrationType = "paypal";
 
@@ -303,14 +304,17 @@ function PayPalButtonUI(config) {
     }
 
     /**
-     * Callback as provided via constructor's {@link PayPalButtonUI|configuration} that is called when on PayPal tokenization
-     * success
-     * 
      * @since 1.0
-     * @member {callback=}
-     * @default {@link ConfiguredClass#noop}
+     * @inheritdoc
+     * @override
      */
-    this.onPaymentMethodReceived = config.onPaymentMethodReceived || that.noop;
+    this.onPaymentMethodReceived = function(paymentMethodInfo) {
+        GenericIntegration.prototype.onPaymentMethodReceived.call(that, paymentMethodInfo);
+
+        if (config.onPaymentMethodReceived) {
+            config.onPaymentMethodReceived(paymentMethodInfo);
+        }
+    }
 
     // Disable the superclass submit default action
     if (this.buttonOptions.button_type !== "submit") {
@@ -462,8 +466,6 @@ function PayPalButtonUI(config) {
                 return;
             }
 
-            that.onPaymentMethodReceived(paymentMethodInfo);
-
             var id = that.getButtonId().replace("#", ".") + "-payment-method";
             $(id + "-detail span").text(paymentMethodInfo.details.email);
 
@@ -486,6 +488,7 @@ PayPalButtonUI.prototype = Object.create(BraintreeUI3.prototype);
 PayPalButtonUI.prototype.constructor = PayPalButtonUI;
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */
@@ -516,6 +519,7 @@ PayPalButtonUI.prototype.destroy = function(onDone) {
 };
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */
@@ -563,12 +567,12 @@ PayPalButtonUI.prototype.postInit = function() {
         $("body").on("cancel_paypal_payment", function() {
             that.hidePaymentMethod();
         });
-
     });
 
 };
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */

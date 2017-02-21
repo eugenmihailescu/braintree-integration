@@ -49,6 +49,10 @@ cp -rP ${SRC}/public_html/assets/templates ${DST}/public_html/assets
 cp -P ${SRC}/public_html/{index,checkout}.php ${DST}/public_html/
 cp -P ${DST}/example.env ${DST}/.env
 
+# reroute some obsolete paths
+sed -i 's/\/images\//\/assets\/img\//' ${DST}/public_html/transaction.php
+sed -i 's/\/index\.php/index\.php/' ${DST}/public_html/transaction.php
+
 edone
 
 echoy "Installing vendor dependencies via Composer..."

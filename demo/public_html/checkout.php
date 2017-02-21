@@ -45,5 +45,5 @@ if ($result->success || ! is_null($result->transaction)) {
     }
     
     $_SESSION["errors"] = $errorString;
-    header("Location: index.php");
+    header("Location: " . preg_replace("/\/[^.\/]+\.php$/", "", $_SERVER["REQUEST_URI"]) . "/index.php");
 }

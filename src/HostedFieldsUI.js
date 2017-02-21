@@ -26,9 +26,10 @@ function HostedFieldsUI(config) {
     var events = config.events || {};// hosted fields events
 
     /**
+     * @since 1.0
      * @inheritdoc
      * @override
-     * @default hosted-fields
+     * @default
      */
     this.integrationType = 'hosted-fields'; // this class Braintree integration type
 
@@ -137,11 +138,25 @@ HostedFieldsUI.prototype = Object.create(BraintreeUI3.prototype);
 HostedFieldsUI.prototype.constructor = HostedFieldsUI;
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */
 HostedFieldsUI.prototype.postInit = function() {
     this.createFields();
 
-    $(this.form).on("submit", this.tokenizeCard);
+    var that = this;
+    var init = function() {
+        $(that.form).on("submit", that.tokenizeCard);
+    }
+
+    // for cases when PayPal button and HostedFields are mutual exclusive
+    $("body").on("init_paypal_payment", function() {
+        $(that.form).off("submit");
+    });
+    $("body").on("cancel_paypal_payment", function() {
+        init();
+    });
+
+    init();
 };

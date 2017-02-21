@@ -11,6 +11,7 @@ require_once ("../includes/ajax.php");
 
     <?php
     require_once ("../includes/header.php");
+    require_once ("../includes/url.php");
     
     $customer_id = isset($_SESSION['customerId']) ? $_SESSION['customerId'] : '';
     
@@ -18,10 +19,11 @@ require_once ("../includes/ajax.php");
     
     $vault_option = isset($_REQUEST['vault_option']) ? $_REQUEST['vault_option'] : '';
     
+    $url = preg_replace("/(.+)\/([^.\/]+\.[^.\/]+)?$/", "$1", $_SELF_URL);
     ?>
 <script>
 var vault_option='<?php echo $vault_option;?>';
-var ajaxurl='/';
+var ajaxurl='<?php echo $url;?>/index.php';
 </script>
 	<div class="wrapper">
 		<div class="checkout container">
@@ -49,7 +51,7 @@ var ajaxurl='/';
 				</select>
 
 			</div>
-			<form method="post" id="payment-form" action="/checkout.php">
+			<form method="post" id="payment-form" action="<?php echo $url.'/checkout.php';?>">
 				<div class="extra-options-wrapper off">
 					<a href="#extra_options" class="extra-option-toggle">Show advanced options</a>
 					<div class="extra-options">

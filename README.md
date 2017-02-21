@@ -33,6 +33,7 @@ In order to generate the JSDoc documentation you should follow the steps below. 
   - this will create a `jsdoc` folder that will contain the auto-generated JSDoc documentation for the JavaScript source files
    
 ## Demo  
-A demo application is included (see `demo` folder). It makes use of the [https://github.com/braintree/braintree_php_example](https://github.com/braintree/braintree_php_example).
+A demo application is included (see `demo` folder). It makes use of the [https://github.com/braintree/braintree_php_example](https://github.com/braintree/braintree_php_example). The demo can be also tested online [here](https://sandbox.mynixworld.info/pseudoshop/public_html/). 
 
-This is an ongoing project so expect more...
+
+> This is an ongoing project so expect more...

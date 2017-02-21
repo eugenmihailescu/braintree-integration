@@ -1,6 +1,6 @@
 <?php
 $sdk2_version = '2.27.0';
-$sdk3_version = '3.6.3';
+$sdk3_version = '3.8.0';
 $app_js_path = 'assets/js/app/';
 $optimization = ".min"; // ".min",""
 ?>
@@ -25,6 +25,7 @@ var client_sdk={"sdk2":"<?php echo $sdk2_version?>","sdk3":"<?php echo $sdk3_ver
 <script src="https://js.braintreegateway.com/web/<?php echo $sdk3_version;?>/js/data-collector<?php echo $optimization;?>.js"></script>
 
 <!-- our UI JS classes -->
+<script src="assets/js/integration/InputMask.js"></script>
 <script src="assets/js/integration/BraintreeUtils.js"></script>
 <script src="assets/js/integration/ConfiguredClass.js"></script>
 <script src="assets/js/integration/BraintreeClient3.js"></script>

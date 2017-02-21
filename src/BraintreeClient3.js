@@ -35,6 +35,7 @@ BraintreeClient3.prototype = Object.create(ConfiguredClass.prototype);
 BraintreeClient3.prototype.constructor = BraintreeClient3;
 
 /**
+ * @since 1.0
  * @inheritdoc
  * @override
  */
