@@ -69,5 +69,5 @@ new BraintreeApp();
 
 <div class="footer">
 	<a href="https://github.com/eugenmihailescu/braintree-integration" target="_blank">API source</a> | <a
-		href="<?php echo is_dir(__DIR__.'/../public_html/jsdoc') ?$url."/jsdoc/":"#";?>" target="_blank">API docs</a>
+		href="<?php echo is_dir(__DIR__.'/../jsdoc') ?dirname($url)."/jsdoc/":"#";?>" target="_blank">API docs</a>
 </div>
