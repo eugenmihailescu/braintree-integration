@@ -4,7 +4,7 @@
     BraintreeApp.prototype.getSharedConf = function() {
         return {
             token : this.client_token,
-            form : this.FORMID,
+            form : "form#" + this.FORMID,
             allow3DSPaymentsOny : this.TRUE === this.threeDS_option,
             ignore3DSIfAVS : this.TRUE === this.avs_option,
             inputs : {

@@ -59,7 +59,7 @@ function GenericIntegration(config) {
             that.setFieldValue(that.inputs.paymentNonce, nonce);
         }
 
-        that.form.off("submit").trigger("submit");
+        $(that.form).off("submit").trigger("submit");
     };
 
     /**

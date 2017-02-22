@@ -32,7 +32,10 @@ var ajaxurl='<?php echo $url;?>/index.php';
 				<h1>
 					Hi, <br>Let's test a transaction
 				</h1>
-				<p>Make a test payment with Braintree using PayPal or a card</p>
+				<p>
+					Make a test payment with Braintree using PayPal or a card (<a
+						href="https://www.paypalobjects.com/en_US/vhelp/paypalmanager_help/credit_card_numbers.htm" target="_blank">test numbers</a>)
+				</p>
 			</header>
 			<div class="ui-options">
 				<select id="ui_selector">
