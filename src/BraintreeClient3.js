@@ -8,6 +8,7 @@
  * @version 1.0
  * 
  * @class
+ * @extends ConfiguredClass
  * @since 1.0
  * @param {Object}
  *            config - The client default configuration

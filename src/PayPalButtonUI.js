@@ -8,6 +8,7 @@
  * @version 1.0
  * 
  * @class
+ * @extends BraintreeUI3
  * @since 1.0
  * @param {Object}
  *            config - Default class configuration
@@ -314,7 +315,7 @@ function PayPalButtonUI(config) {
         if (config.onPaymentMethodReceived) {
             config.onPaymentMethodReceived(paymentMethodInfo);
         }
-    }
+    };
 
     // Disable the superclass submit default action
     if (this.buttonOptions.button_type !== "submit") {
@@ -329,7 +330,7 @@ function PayPalButtonUI(config) {
      */
     this.getButtonId = function() {
         return that.buttonOptions.id ? "#" + that.buttonOptions.id : container;
-    }
+    };
 
     /**
      * Destorys the HTML elements created by this integration
@@ -362,7 +363,7 @@ function PayPalButtonUI(config) {
         $("#" + that.buttonOptions.id).hide();
 
         $(that.getButtonId().replace("#", ".") + "-payment-method").show();
-    }
+    };
 
     /**
      * Hide the PayPal payment method

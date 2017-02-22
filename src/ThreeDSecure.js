@@ -7,6 +7,7 @@
  * @version 1.0
  * 
  * @class
+ * @extends BraintreeClient3
  * @since 1.0
  * @param config
  *            The default authentication configuration

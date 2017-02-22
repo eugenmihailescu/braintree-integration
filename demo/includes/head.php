@@ -218,5 +218,23 @@ header.main {
 .card-theme-option {
 	display: block !important;
 }
+
+.footer {
+	background-color: #6E787F;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 1em;
+	position: fixed;
+	z-index: 1;
+}
+
+.footer a {
+	color: #fff;
+}
+
+.footer a:HOVER {
+	color: #5CD493;
+}
 </style>
 </head>

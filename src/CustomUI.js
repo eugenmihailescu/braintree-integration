@@ -7,6 +7,7 @@
  * @version 1.0
  * 
  * @class
+ * @extends BraintreeUI3
  * @since 1.0
  * @param {Object}
  *            config - Default class configuration
