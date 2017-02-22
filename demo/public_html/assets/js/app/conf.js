@@ -4,7 +4,7 @@
     BraintreeApp.prototype.getSharedConf = function() {
         return {
             token : this.client_token,
-            form : $("#payment-form"),
+            form : this.FORMID,
             allow3DSPaymentsOny : this.TRUE === this.threeDS_option,
             ignore3DSIfAVS : this.TRUE === this.avs_option,
             inputs : {
@@ -67,7 +67,7 @@
         case that.CUSTOMUI:
             result.card = shared_conf;
             $.extend(result.card, {
-                id : "payment-form",
+                id : that.FORMID,
                 inputs : $.extend({}, result.card.inputs, cardInputs)
             });
             break;

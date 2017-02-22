@@ -160,7 +160,7 @@ var ajaxurl='<?php echo $url;?>/index.php';
 					</label>
 				</section>
 
-				<button class="button" type="submit">
+				<button id="btn_submit" class="button" type="button">
 					<span>Test Transaction</span>
 				</button>
 			</form>

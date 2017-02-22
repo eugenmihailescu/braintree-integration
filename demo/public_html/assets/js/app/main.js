@@ -81,7 +81,7 @@ function BraintreeApp() {
 
         $("#ui_selector").off(that.CHANGE).on(that.CHANGE, function() {
             $(".card-wrapper").show();
-            
+
             var ui_type = $(this).val();
 
             that.update_theme_list(ui_type);
@@ -111,9 +111,11 @@ function BraintreeApp() {
             init3DS();
         });
 
-        $("button[type=\"submit\"]").on(that.CLICK, function() {
-            $(this).val("Processing...").attr(that.DISABLED, that.DISABLED);
+        $("button#btn_submit").on(that.CLICK, function() {
+            $(this).attr(that.DISABLED, that.DISABLED);
+            $("button#btn_submit span").text("Processing...");
             that.blockUI();
+            $("#" + that.FORMID).submit();
         });
 
         $("a.extra-option-toggle").off(that.CLICK).on(that.CLICK, function() {
@@ -294,9 +296,10 @@ BraintreeApp.prototype.HOSTEDUI_PAYPAL = "hosted-ui-paypal-button";
 BraintreeApp.prototype.DISABLED = "disabled";
 BraintreeApp.prototype.FALSE = "false";
 BraintreeApp.prototype.TRUE = "true";
+BraintreeApp.prototype.FORMID = "payment-form";
 
 BraintreeApp.prototype.checkout = new Demo({
-    formID : "payment-form",
+    formID : BraintreeApp.prototype.FORMID,
     development : true
 });
 

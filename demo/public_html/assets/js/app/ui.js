@@ -17,7 +17,8 @@
         // instead the BraintreeApp.prototype must be used to access BraintreeApp static methods
         BraintreeApp.prototype.checkout.notify("error");
 
-        $("button[type=\"submit\"]").val("Test Transaction").removeAttr(BraintreeApp.prototype.DISABLED);
+        $("button#btn_submit").removeAttr(BraintreeApp.prototype.DISABLED);
+        $("button#btn_submit span").text("Test Transaction");
 
         BraintreeApp.prototype.unBlockUI();
     };
